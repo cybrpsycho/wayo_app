@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "395624591396",
+    "project_id": "wayo-254",
+    "storage_bucket": "wayo-254.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395624591396:android:d5afded0cbf9090cafe8b1",
+        "android_client_info": {
+          "package_name": "com.wayo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "395624591396-h0k5av7eph4lv9vthlbt6ok6ns4rjqkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoQlcIqoOAG8hm5DeTZtA16x1ZBHfaNcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "395624591396-h0k5av7eph4lv9vthlbt6ok6ns4rjqkq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "395624591396-2mu26infoc3bk3oaeegon9sp4cnig440.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wayo.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
