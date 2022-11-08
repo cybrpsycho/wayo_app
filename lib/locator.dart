@@ -1,16 +1,18 @@
 import 'package:get_it/get_it.dart';
-import 'package:wayo/apis/advert_api.dart';
-import 'package:wayo/apis/category_api.dart';
-import 'package:wayo/apis/mall_api.dart';
-import 'package:wayo/apis/store_api.dart';
-import 'package:wayo/repositories/mall_repository.dart';
-import 'package:wayo/repositories/map_repository.dart';
-import 'package:wayo/repositories/settings_repository.dart';
-import 'package:wayo/repositories/store_repository.dart';
-import 'package:wayo/services/location_service.dart';
-import 'package:wayo/services/notification_service.dart';
-import 'package:wayo/services/permissions_service.dart';
-import 'package:wayo/services/cache_service.dart';
+
+import 'apis/advert_api.dart';
+import 'apis/category_api.dart';
+import 'apis/mall_api.dart';
+import 'apis/store_api.dart';
+
+import 'repositories/mall_repository.dart';
+import 'repositories/map_repository.dart';
+import 'repositories/settings_repository.dart';
+import 'repositories/store_repository.dart';
+
+import 'services/cache_service.dart';
+import 'services/location_service.dart';
+import 'services/permissions_service.dart';
 
 final locator = GetIt.instance;
 
@@ -19,8 +21,6 @@ void setupLocator() {
   locator.registerLazySingleton<PermissionsService>(() => PermissionsService());
   locator.registerLazySingleton<LocationService>(() => LocationService());
   locator.registerLazySingleton<CacheService>(() => CacheService());
-  locator
-      .registerLazySingleton<NotificationService>(() => NotificationService());
   // REPOSITORIES
   locator
       .registerLazySingleton<SettingsReposistory>(() => SettingsReposistory());

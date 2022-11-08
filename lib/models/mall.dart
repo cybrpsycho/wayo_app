@@ -9,7 +9,7 @@ class Mall {
   final String id, name, hours, address, location;
   final List<String> images;
   final List<Store> stores;
-  final String? logo, email;
+  final String? logo,model, email;
 
   const Mall({
     required this.id,
@@ -20,6 +20,7 @@ class Mall {
     this.images = const [],
     this.stores = const [],
     this.logo,
+    this.model,
     this.email,
   });
 

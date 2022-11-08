@@ -19,17 +19,17 @@ class DataState extends Equatable {
 
   DataState copyWith({
     LoadingStatus? status,
-    List<Mall> malls = const [],
-    List<Store> stores = const [],
-    List<Category> categories = const [],
+    List<Mall> ?malls ,
+    List<Store> ?stores ,
+    List<Category>? categories,
     Mall? mall,
     Store? store,
   }) {
     return DataState(
       status: status ?? this.status,
-      malls: [...this.malls, ...malls],
-      stores: [...this.stores, ...stores],
-      categories: [...this.categories, ...categories],
+      malls: malls ?? this.malls,
+      stores: stores ?? this.stores,
+      categories: categories ?? this.categories,
       mall: mall ?? this.mall,
       store: store ?? this.store,
     );

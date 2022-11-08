@@ -21,7 +21,7 @@ class ConfigBloc extends Bloc<ConfigEvent, ConfigState> {
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
       final settingsRepo = locator.get<SettingsReposistory>();
-      await settingsRepo.setupNotifications();
+      // await settingsRepo.setupNotifications();
       emit(state.copyWith(status: LoadingStatus.success));
     } on CustomException {
       emit(state.copyWith(status: LoadingStatus.failure));

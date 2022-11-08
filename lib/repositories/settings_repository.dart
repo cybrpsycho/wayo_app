@@ -1,13 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:wayo/locator.dart';
-import 'package:wayo/services/notification_service.dart';
 import 'package:wayo/services/cache_service.dart';
 
 class SettingsReposistory {
-  final _notificationService = locator.get<NotificationService>();
   final _storageService = locator.get<CacheService>();
 
   Future<bool> isFirstRun() async {
@@ -20,14 +16,12 @@ class SettingsReposistory {
   }
 
   Future<void> setupNotifications() async {
-    final storedToken = await _storageService.getString('FCMToken');
-    final currentToken = await _notificationService.getFCMToken();
+    // final storedToken = await _storageService.getString('FCMToken');
+    // final currentToken = await _notificationService.getFCMToken();
 
-    if (storedToken == null || storedToken != currentToken) {
-      await _storageService.setString('FCMToken', currentToken);
-    }
-
-    _notificationService.subToFCMTokenUpdates();
+    // if (storedToken == null || storedToken != currentToken) {
+    //   await _storageService.setString('FCMToken', currentToken);
+    // }
   }
 
   Future<ThemeMode> getThemeMode() async {

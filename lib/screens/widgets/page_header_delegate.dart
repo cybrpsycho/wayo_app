@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:wayo/models/mall.dart';
-import 'package:wayo/screens/generic_widgets/appbar.dart';
+import 'package:wayo/screens/generic_widgets/custom_appbar.dart';
 
 import 'card_footer.dart';
 
@@ -24,24 +24,13 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
             child: SizedBox(
               height: 240,
               child: AnimatedContainer(
-                clipBehavior: Clip.antiAlias,
                 duration: const Duration(milliseconds: 200),
                 margin: _getMargin(progress),
-                decoration: BoxDecoration(
-                  borderRadius: _getRadius(progress),
-                  boxShadow: [
-                    BoxShadow(
-                      offset: const Offset(2, 2),
-                      blurRadius: 8,
-                      color: context.isDark
-                          ? const Color(0xFF111111)
-                          : const Color(0xFFD4D4D4),
-                    )
-                  ],
-                ),
                 child: Card(
-                  shape: const RoundedRectangleBorder(),
-                  elevation: 0,
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: _getRadius(progress),
+                  ),
                   child: Stack(
                     children: [
                       if (mall?.images.isEmpty ?? false)
@@ -77,12 +66,12 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                           }).toList(),
                         ),
                       AnimatedOpacity(
-                        opacity: progress > 0.5 ? 0.7 : 0,
+                        opacity: progress > 0.3 ? 0.7 : 0,
                         duration: const Duration(milliseconds: 300),
                         child: Container(color: Colors.black),
                       ),
                       AnimatedOpacity(
-                        opacity: progress < 0.5 ? 1 - progress : 0,
+                        opacity: progress < 0.3 ? 1 - progress : 0,
                         duration: const Duration(milliseconds: 300),
                         child: Align(
                           alignment: Alignment.bottomCenter,
@@ -100,7 +89,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const GenericAppBar(),
+                const CustomAppBar(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
@@ -144,13 +133,6 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
       return const EdgeInsets.symmetric(horizontal: 24);
     }
     return EdgeInsets.zero;
-  }
-
-  ImageProvider _getImage(String? imageUrl) {
-    if (imageUrl != null) {
-      return CachedNetworkImageProvider(imageUrl);
-    }
-    return const AssetImage('assets/images/placeholder.jpg');
   }
 
   BorderRadius _getRadius(double value) {

@@ -2,10 +2,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:wayo/configs/enums.dart';
 import 'package:wayo/exception.dart';
 
-class NotificationService {
+class NotificationApi {
+  // final _ref = FirebaseFirestore.instance.collection('notifications');
   final _messaging = FirebaseMessaging.instance;
 
-  Future<String> getFCMToken() async {
+  Future<void> setToken(String token) async {
     final token = await _messaging.getToken();
 
     if (token == null) {
@@ -15,12 +16,10 @@ class NotificationService {
       );
     }
 
-    return token;
-  }
-
-  void subToFCMTokenUpdates() {
     _messaging.onTokenRefresh.listen((token) {
       // TODO: Update DB with new token value on token update
     });
   }
+
+  Future<void> getNoticiations() async {}
 }

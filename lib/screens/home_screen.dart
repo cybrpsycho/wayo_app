@@ -1,10 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wayo/blocs/data_bloc/data_bloc.dart';
-import 'package:wayo/screens/generic_widgets/appbar.dart';
+import 'package:wayo/screens/generic_widgets/custom_appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,15 +12,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final DataBloc _dataBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _dataBloc = context.read<DataBloc>();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DataBloc, DataState>(
-      bloc: context.read<DataBloc>(),
+      bloc: _dataBloc,
       listener: (context, state) {},
       builder: (context, state) {
         return Column(
           children: [
-            const GenericAppBar(),
+            const CustomAppBar(),
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
@@ -31,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: Text(mall.name),
                     subtitle: Text(mall.address),
                     onTap: () {
-                      context.read<DataBloc>().add(ViewMall(mall: mall));
+                      _dataBloc.add(ViewMall(mall: mall));
                       context.goNamed('mall');
                     },
                   );

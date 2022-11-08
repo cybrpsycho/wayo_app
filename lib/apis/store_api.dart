@@ -3,14 +3,11 @@ import 'package:wayo/models/store.dart';
 
 class StoreApi {
   final _ref = FirebaseFirestore.instance.collectionGroup('stores');
-  final int _limit = 20;
-  int _page = 0;
 
   // TODO: Add error handling
   Future<List<Store>> getStores() async {
     final snapshot = await _ref.get();
     final docs = snapshot.docs;
-    _page++;
 
     return docs.map((doc) => Store.fromJson(doc.data())).toList();
   }

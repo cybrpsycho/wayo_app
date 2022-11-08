@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   fontFamily: 'AvantGarde',
-  colorScheme: const ColorScheme.dark(primary: Color(0xFF474d61)),
+  brightness: Brightness.dark,
   scaffoldBackgroundColor: Colors.grey[900],
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.grey[850],
     elevation: 0,
-    scrolledUnderElevation: 2,
     iconTheme: darkIconTheme,
+    scrolledUnderElevation: 2,
+    backgroundColor: Colors.transparent,
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
-    backgroundColor: Color(0xFF303030),
+    backgroundColor: Color(0xFF3B3B3B),
     selectedItemColor: Color(0xffffffff),
     unselectedItemColor: Color(0xffffffff),
     showSelectedLabels: true,

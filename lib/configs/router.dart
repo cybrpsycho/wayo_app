@@ -1,18 +1,19 @@
-import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:wayo/blocs/data_bloc/data_bloc.dart';
-import 'package:wayo/screens/generic_widgets/appbar.dart';
-import 'package:wayo/screens/generic_widgets/bottomnav.dart';
+import 'package:wayo/screens/discover_screen.dart';
+import 'package:wayo/screens/generic_widgets/custom_bottomnav.dart';
 import 'package:wayo/screens/home_screen.dart';
 import 'package:wayo/screens/mallinfo_screen.dart';
 import 'package:wayo/screens/mallmap_screen.dart';
 import 'package:wayo/screens/menu_screen.dart';
+import 'package:wayo/screens/notifications_screen.dart';
 import 'package:wayo/screens/savedplaces_screen.dart';
 import 'package:wayo/screens/search_screen.dart';
 import 'package:wayo/screens/splash_screen.dart';
+import 'package:wayo/screens/storeinfo_screen.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/splash',
@@ -28,6 +29,11 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const HomeScreen(),
       routes: [
         GoRoute(
+          path: 'notifications',
+          name: 'notifications',
+          builder: (context, state) => const NotificationsScreen(),
+        ),
+        GoRoute(
           path: 'search',
           name: 'search',
           builder: (context, state) => const SearchScreen(),
@@ -35,7 +41,7 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: 'discover',
           name: 'discover',
-          builder: (context, state) => const SearchScreen(),
+          builder: (context, state) => const DiscoverScreen(),
         ),
         GoRoute(
           path: 'saved',
@@ -58,6 +64,12 @@ final GoRouter router = GoRouter(
               builder: (context, state) => const MallMapScreen(),
             ),
           ],
+        ),
+        GoRoute(
+          path: 'store',
+          name: 'store',
+          builder: (context, state) => const StoreInfoScreen(),
+          routes: const [],
         ),
       ],
     ),
@@ -126,6 +138,7 @@ final GoRouter router = GoRouter(
     // )
   ],
   navigatorBuilder: (context, state, child) {
+    final isSplash = state.location == '/splash';
     return Navigator(
       onPopPage: (route, result) {
         if (context.canPop()) return false;
@@ -138,7 +151,7 @@ final GoRouter router = GoRouter(
             child: SafeArea(
               child: Scaffold(
                 body: KeyboardDismisser(child: child),
-                bottomNavigationBar: const GenericBottomNav(),
+                bottomNavigationBar: isSplash ? null : const CustomBottomNav(),
               ),
             ),
           ),

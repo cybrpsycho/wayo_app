@@ -1,5 +1,4 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
 class AdvertScreen extends StatefulWidget {
   const AdvertScreen({super.key});
@@ -11,6 +10,6 @@ class AdvertScreen extends StatefulWidget {
 class _AdvertScreenState extends State<AdvertScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Center(child: Text('advert'));
   }
 }

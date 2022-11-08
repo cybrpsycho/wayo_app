@@ -5,31 +5,37 @@ import 'package:flutter/material.dart';
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
   fontFamily: 'AvantGarde',
-  colorScheme: const ColorScheme.light(primary: Color(0xFF474d61)),
+  brightness: Brightness.light,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
-    backgroundColor: Colors.white,
     elevation: 0,
-    scrolledUnderElevation: 2,
     iconTheme: lightIconTheme,
+    scrolledUnderElevation: 0,
+    backgroundColor: Colors.transparent,
   ),
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-    backgroundColor: Color(0xFFFFFFFF),
-    selectedItemColor: Color(0xFF444444),
-    unselectedItemColor: Color(0xFF444444),
+    elevation: 0,
     showSelectedLabels: true,
     showUnselectedLabels: true,
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: Colors.transparent,
+    selectedItemColor: Color(0xFF464646),
+    unselectedItemColor: Color(0xFF5A5A5A),
+    selectedLabelStyle: TextStyle(fontSize: 12),
+    unselectedLabelStyle: TextStyle(fontSize: 10),
   ),
   iconTheme: lightIconTheme,
   cardTheme: const CardTheme(
     margin: EdgeInsets.zero,
-    clipBehavior: Clip.antiAlias,
-    color: Colors.white,
+    color: Color(0xFFFAFAFA),
   ),
+  tabBarTheme: const TabBarTheme(
+    labelPadding: EdgeInsets.all(4),
+    labelColor: Colors.grey,
+  )
 );
 
-IconThemeData lightIconTheme = const IconThemeData(color: Color(0xFF444444));
+IconThemeData lightIconTheme = const IconThemeData(color: Color(0xFF464646));
 
 final mapLightThemeConfig = jsonEncode([
   {
