@@ -4,12 +4,10 @@ import 'apis/advert_api.dart';
 import 'apis/category_api.dart';
 import 'apis/mall_api.dart';
 import 'apis/store_api.dart';
-
 import 'repositories/mall_repository.dart';
 import 'repositories/map_repository.dart';
 import 'repositories/settings_repository.dart';
 import 'repositories/store_repository.dart';
-
 import 'services/cache_service.dart';
 import 'services/location_service.dart';
 import 'services/permissions_service.dart';

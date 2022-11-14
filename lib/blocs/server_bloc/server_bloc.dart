@@ -18,10 +18,8 @@ class ServerBloc extends Bloc<ServerEvent, ServerState> {
   ) async {
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
-      final server = InAppLocalhostServer(
-        documentRoot: 'assets/web',
-        port: 8080
-      );
+      final server =
+          InAppLocalhostServer(documentRoot: 'assets/web', port: 8080);
       await server.start();
       emit(state.copyWith(status: LoadingStatus.success, server: server));
     } catch (e) {

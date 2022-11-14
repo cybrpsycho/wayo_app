@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:wayo/models/mall.dart';
-import 'package:wayo/screens/generic_widgets/custom_appbar.dart';
-
-import 'card_footer.dart';
 
 class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Mall? mall;
@@ -75,7 +73,43 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                         duration: const Duration(milliseconds: 300),
                         child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: CardFooter(mall: mall),
+                          child: Card(
+                            elevation: 0,
+                            shape: const RoundedRectangleBorder(),
+                            child: Container(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flexible(
+                                    child: Row(
+                                      children: [
+                                        const Icon(FeatherIcons.clock),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                            child: Text(
+                                                mall?.hours ?? 'undefined')),
+                                      ],
+                                    ),
+                                  ),
+                                  const Flexible(child: SizedBox(height: 8)),
+                                  Flexible(
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Icon(FeatherIcons.mapPin),
+                                        const SizedBox(width: 8),
+                                        Expanded(
+                                            child: Text(
+                                                mall?.address ?? 'undefined')),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       )
                     ],
@@ -89,18 +123,18 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const CustomAppBar(),
+                // const CustomAppBar(),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Text(
                     mall?.name ?? 'undefined',
-                    style: Theme.of(context).textTheme.headline5?.copyWith(
-                          color: Color.lerp(
-                            Colors.black,
-                            Colors.white,
-                            progress,
-                          ),
-                        ),
+                    style: TextStyle(
+                      color: Color.lerp(
+                        Colors.black,
+                        Colors.white,
+                        progress,
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -111,13 +145,13 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                     delayBefore: const Duration(milliseconds: 3000),
                     // pauseBetween: const Duration(milliseconds: 2000),
                     numberOfReps: 2,
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                          color: Color.lerp(
-                            Colors.black,
-                            Colors.white,
-                            progress,
-                          ),
-                        ),
+                    style: TextStyle(
+                      color: Color.lerp(
+                        Colors.black,
+                        Colors.blue,
+                        progress,
+                      ),
+                    ),
                   ),
                 ),
               ],

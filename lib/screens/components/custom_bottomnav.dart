@@ -12,7 +12,7 @@ class CustomBottomNav extends StatefulWidget {
 class _CustomBottomNavState extends State<CustomBottomNav> {
   final _destinations = ['home', 'search', 'discover', 'saved', 'menu'];
 
-  int _selectedIndex = 0;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
       child: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(FeatherIcons.home),
+            icon: Icon(Icons.home_rounded),
             label: 'Home',
           ),
           BottomNavigationBarItem(
@@ -44,12 +44,14 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
             label: 'Menu',
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: (value) => setState(() {
-          if (_selectedIndex == value) return;
-          _selectedIndex = value;
-          context.goNamed(_destinations[value]);
-        }),
+        currentIndex: _currentIndex,
+        onTap: (value) {
+          setState(() {
+            if (_currentIndex == value) return;
+            _currentIndex = value;
+            context.goNamed(_destinations[value]);
+          });
+        },
       ),
     );
   }

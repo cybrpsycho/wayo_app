@@ -64,12 +64,17 @@ class DataBloc extends Bloc<DataEvent, DataState> {
     try {
       final storeRepo = locator.get<StoreRepository>();
       final mallRepo = locator.get<MallRepository>();
-      emit(state.copyWith(
-        status: LoadingStatus.success,
-        stores: event.mallId != null
-            ? await mallRepo.getStoresInMall(event.mallId!)
-            : await storeRepo.getStores(),
-      ));
+      if (event.mallId != null) {
+        emit(state.copyWith(
+          status: LoadingStatus.success,
+          storesInMall: await mallRepo.getStoresInMall(event.mallId!),
+        ));
+      } else {
+        emit(state.copyWith(
+          status: LoadingStatus.success,
+          stores: await storeRepo.getStores(),
+        ));
+      }
     } on CustomException {
       emit(state.copyWith(status: LoadingStatus.failure));
     }

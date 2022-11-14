@@ -10,18 +10,20 @@ environment:
 dependencies:
   cached_network_image: ^3.2.2
   carousel_slider: ^4.1.1
-  cloud_firestore: ^3.5.1
+  cloud_firestore: ^4.0.5
   custom_marker: ^1.0.0
   dio: ^4.0.6
   equatable: ^2.0.5
   feather_icons: ^1.2.0
-  firebase_app_check: ^0.0.9+1
-  firebase_core: ^1.23.0
-  firebase_messaging: ^13.1.0
+  firebase_app_check: ^0.1.1+4
+  firebase_core: ^2.2.0
+  firebase_messaging: ^14.1.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
   flutter_inappwebview: ^5.7.1
+  flutter_svg: ^1.1.6
+  fuzzywuzzy: ^0.2.0
   get_it: ^7.2.0
   go_router: ^4.5.0
   google_maps_flutter: ^2.2.0
@@ -29,6 +31,7 @@ dependencies:
   json_annotation: ^4.7.0
   keyboard_dismisser: ^3.0.0
   location: ^4.4.0
+  navigation_history_observer: ^1.1.0
   shared_preferences: ^2.0.15
   sized_context: ^1.0.0+1
   text_scroll: ^0.1.0
@@ -40,13 +43,15 @@ dev_dependencies:
   json_serializable: ^6.4.0
   build_runner: ^2.2.1
 
-uses-material-icons: true
 
 flutter:
+  uses-material-design: true
+
   assets:
     - assets/animations/
     - assets/fonts/
     - assets/images/
+    - assets/icons/
     - assets/sounds/
     - assets/web/
     - assets/web/models/

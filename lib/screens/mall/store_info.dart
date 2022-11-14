@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wayo/blocs/data_bloc/data_bloc.dart';
-import 'package:wayo/screens/generic_widgets/custom_appbar.dart';
 
 class StoreInfoScreen extends StatefulWidget {
   const StoreInfoScreen({super.key});
@@ -33,7 +32,7 @@ class _StoreInfoScreenState extends State<StoreInfoScreen> {
             const Placeholder(),
             Column(
               children: [
-                const CustomAppBar(),
+                // const CustomAppBar(),
                 const Spacer(),
                 Card(
                   margin: const EdgeInsets.all(24),

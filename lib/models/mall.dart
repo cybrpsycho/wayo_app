@@ -9,7 +9,7 @@ class Mall {
   final String id, name, hours, address, location;
   final List<String> images;
   final List<Store> stores;
-  final String? logo,model, email;
+  final String? logo, model, email;
 
   const Mall({
     required this.id,

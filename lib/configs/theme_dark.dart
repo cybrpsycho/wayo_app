@@ -3,34 +3,31 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 ThemeData darkTheme = ThemeData(
-  useMaterial3: true,
-  fontFamily: 'AvantGarde',
-  brightness: Brightness.dark,
-  scaffoldBackgroundColor: Colors.grey[900],
-  appBarTheme: AppBarTheme(
-    elevation: 0,
-    iconTheme: darkIconTheme,
-    scrolledUnderElevation: 2,
-    backgroundColor: Colors.transparent,
-  ),
-  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-    backgroundColor: Color(0xFF3B3B3B),
-    selectedItemColor: Color(0xffffffff),
-    unselectedItemColor: Color(0xffffffff),
-    showSelectedLabels: true,
-    showUnselectedLabels: true,
-  ),
-  iconTheme: darkIconTheme,
-  cardTheme: CardTheme(
-    margin: EdgeInsets.zero,
-    clipBehavior: Clip.antiAlias,
-    color: Colors.grey[800],
-    shadowColor: const Color(0xFF171A1B),
-  ),
-);
-
-IconThemeData darkIconTheme = const IconThemeData(color: Color(0xffffffff));
+    useMaterial3: true,
+    fontFamily: 'AvantGarde',
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: Colors.grey[900],
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      backgroundColor: Colors.grey[900],
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      elevation: 0,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Colors.transparent,
+      selectedLabelStyle: TextStyle(fontSize: 12),
+      unselectedLabelStyle: TextStyle(fontSize: 10),
+    ),
+    cardTheme: const CardTheme(
+      margin: EdgeInsets.zero,
+    ),
+    tabBarTheme: const TabBarTheme(
+      labelPadding: EdgeInsets.all(4),
+      labelColor: Colors.grey,
+    ));
 
 final mapDarkThemeConfig = jsonEncode([
   {

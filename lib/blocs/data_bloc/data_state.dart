@@ -4,6 +4,7 @@ class DataState extends Equatable {
   final LoadingStatus status;
   final List<Mall> malls;
   final List<Store> stores;
+  final List<Store> storesInMall;
   final List<Category> categories;
   final Mall? mall;
   final Store? store;
@@ -12,6 +13,7 @@ class DataState extends Equatable {
     this.status = LoadingStatus.initial,
     this.malls = const [],
     this.stores = const [],
+    this.storesInMall = const [],
     this.categories = const [],
     this.mall,
     this.store,
@@ -19,8 +21,9 @@ class DataState extends Equatable {
 
   DataState copyWith({
     LoadingStatus? status,
-    List<Mall> ?malls ,
-    List<Store> ?stores ,
+    List<Mall>? malls,
+    List<Store>? stores,
+    List<Store>? storesInMall,
     List<Category>? categories,
     Mall? mall,
     Store? store,
@@ -29,6 +32,7 @@ class DataState extends Equatable {
       status: status ?? this.status,
       malls: malls ?? this.malls,
       stores: stores ?? this.stores,
+      storesInMall: storesInMall ?? this.storesInMall,
       categories: categories ?? this.categories,
       mall: mall ?? this.mall,
       store: store ?? this.store,
@@ -36,5 +40,13 @@ class DataState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, malls, stores, categories, mall, store];
+  List<Object?> get props => [
+        status,
+        malls,
+        stores,
+        storesInMall,
+        categories,
+        mall,
+        store,
+      ];
 }

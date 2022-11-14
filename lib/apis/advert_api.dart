@@ -33,6 +33,8 @@ class AdvertApi {
       }
     }
 
+    ads.shuffle();
+
     return ads;
   }
 
@@ -48,6 +50,8 @@ class AdvertApi {
         }
       }
     }
+
+    ads.shuffle();
 
     return ads;
   }
