@@ -16,6 +16,8 @@ part 'map_state.dart';
 class MapBloc extends Bloc<MapEvent, MapState> {
   MapBloc() : super(const MapState()) {
     on<InitializeMap>(_onInitializeMap);
+    on<GetCurrentLocation>(_onGetCurrentLocation);
+    on<ChangeMapTheme>(_onChangeMapTheme);
   }
 
   void _onInitializeMap(
@@ -42,8 +44,53 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
       emit(state.copyWith(
         status: LoadingStatus.success,
-        initialLocation: await mapRepo.getLocation(),
-        currentLocation: await mapRepo.getLocationUpdates(),
+        location: await mapRepo.getLocation(),
+        mapThemeConfig: mapThemeConfig,
+      ));
+    } on CustomException {
+      emit(state.copyWith(status: LoadingStatus.failure));
+    }
+  }
+
+  void _onGetCurrentLocation(
+    GetCurrentLocation event,
+    Emitter<MapState> emit,
+  ) async {
+    try {
+      final mapRepo = locator.get<MapRepository>();
+
+      emit(state.copyWith(
+        status: LoadingStatus.success,
+        location: await mapRepo.getLocation(),
+      ));
+    } on CustomException {
+      emit(state.copyWith(status: LoadingStatus.failure));
+    }
+  }
+
+  void _onChangeMapTheme(
+    ChangeMapTheme event,
+    Emitter<MapState> emit,
+  ) async {
+    emit(state.copyWith(status: LoadingStatus.failure));
+    try {
+      final settingsRepo = locator.get<SettingsReposistory>();
+
+      final themeMode = await settingsRepo.getThemeMode();
+      String? mapThemeConfig;
+
+      switch (themeMode) {
+        case ThemeMode.light:
+          mapThemeConfig = mapLightThemeConfig;
+          break;
+        case ThemeMode.dark:
+          mapThemeConfig = mapDarkThemeConfig;
+          break;
+        default:
+      }
+
+      emit(state.copyWith(
+        status: LoadingStatus.success,
         mapThemeConfig: mapThemeConfig,
       ));
     } on CustomException {

@@ -2,36 +2,32 @@ part of 'map_bloc.dart';
 
 class MapState extends Equatable {
   final LoadingStatus status;
-  final LatLng initialLocation;
-  final Stream<LatLng>? currentLocation;
+  final LatLng location;
+  final Stream<LatLng>? locationStream;
   final String? mapThemeConfig;
 
   const MapState({
     this.status = LoadingStatus.initial,
-    this.initialLocation = const LatLng(0, 0),
-    this.currentLocation,
+    this.location = const LatLng(0, 0),
+    this.locationStream,
     this.mapThemeConfig,
   });
 
   MapState copyWith({
     required LoadingStatus status,
-    LatLng? initialLocation,
-    Stream<LatLng>? currentLocation,
+    LatLng? location,
+    LatLng? currentLocation,
+    Stream<LatLng>? locationStream,
     String? mapThemeConfig,
   }) {
     return MapState(
       status: status,
-      initialLocation: initialLocation ?? this.initialLocation,
-      currentLocation: currentLocation ?? this.currentLocation,
+      location: location ?? this.location,
+      locationStream: locationStream ?? this.locationStream,
       mapThemeConfig: mapThemeConfig ?? this.mapThemeConfig,
     );
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        initialLocation,
-        currentLocation,
-        mapThemeConfig,
-      ];
+  List<Object?> get props => [status, location, locationStream, mapThemeConfig];
 }

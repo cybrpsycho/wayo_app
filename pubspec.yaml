@@ -31,7 +31,6 @@ dependencies:
   json_annotation: ^4.7.0
   keyboard_dismisser: ^3.0.0
   location: ^4.4.0
-  navigation_history_observer: ^1.1.0
   shared_preferences: ^2.0.15
   sized_context: ^1.0.0+1
   text_scroll: ^0.1.0
@@ -54,7 +53,6 @@ flutter:
     - assets/icons/
     - assets/sounds/
     - assets/web/
-    - assets/web/models/
     - assets/web/index.html
 
   fonts:

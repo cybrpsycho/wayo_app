@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../blocs/data_bloc/data_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wayo/blocs/map_bloc/map_bloc.dart';
+import 'package:wayo/configs/enums.dart';
 
 class PhysicalMapPreview extends StatefulWidget {
   const PhysicalMapPreview({super.key});
@@ -12,41 +15,54 @@ class PhysicalMapPreview extends StatefulWidget {
 }
 
 class _PhysicalMapPreviewState extends State<PhysicalMapPreview> {
-  late final DataBloc _dataBloc;
+  late final MapBloc _mapBloc;
+
+  final Completer<GoogleMapController> _controller = Completer();
 
   @override
   void initState() {
     super.initState();
-    _dataBloc = context.read<DataBloc>();
+    _mapBloc = context.read<MapBloc>()..add(GetCurrentLocation());
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DataBloc, DataState>(
-      bloc: _dataBloc,
-      listener: (context, state) {
-        if (state.mall != null) context.goNamed('mall');
-      },
-      builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            _dataBloc.add(
-              ViewMall(
-                mall: state.malls.firstWhere(
-                  (element) => element.id == 'IvTgJrP6mmjAXbhUmwX5',
+    return SizedBox(
+      height: 240,
+      child: BlocBuilder<MapBloc, MapState>(
+        bloc: _mapBloc,
+        builder: (context, state) {
+          switch (state.status) {
+            case LoadingStatus.initial:
+              return const Center(child: CircularProgressIndicator());
+            case LoadingStatus.loading:
+              return const Center(child: CircularProgressIndicator());
+            case LoadingStatus.failure:
+              return const Center(child: Text('failed to load map'));
+            case LoadingStatus.success:
+              return GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: state.location,
+                  zoom: 15,
                 ),
-              ),
-            );
-          },
-          child: const Card(
-            child: SizedBox(
-              width: double.infinity,
-              height: 240,
-              child: Placeholder(),
-            ),
-          ),
-        );
-      },
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                zoomControlsEnabled: false,
+                zoomGesturesEnabled: false,
+                tiltGesturesEnabled: false,
+                rotateGesturesEnabled: false,
+                scrollGesturesEnabled: false,
+                onTap: (argument) => context.goNamed('physical_map'),
+                onMapCreated: (controller) async {
+                  if (_controller.isCompleted) return;
+                  _controller.complete(controller);
+                  await controller.setMapStyle(state.mapThemeConfig);
+                  setState(() {});
+                },
+              );
+          }
+        },
+      ),
     );
   }
 }

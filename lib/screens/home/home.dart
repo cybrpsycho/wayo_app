@@ -19,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return AppbarWrapper(
       appbarTitle: const Text('WAYO'),
       body: CustomScrollView(
+        clipBehavior: Clip.none,
         slivers: [
           const SliverPadding(
             padding: EdgeInsets.all(24),
@@ -28,14 +29,23 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.symmetric(horizontal: 24),
             sliver: SliverToBoxAdapter(child: PhysicalMapPreview()),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            sliver: SliverToBoxAdapter(child: MallsPreviewList()),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            sliver: SliverToBoxAdapter(
+              child: Row(
+                children: [
+                  const Text('Discover Malls'),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('See All'),
+                  )
+                ],
+              ),
+            ),
           ),
-          const SliverPadding(
-            padding: EdgeInsets.all(24),
-            sliver: SliverToBoxAdapter(child: Text('Advertisements')),
-          ),
+          const SliverToBoxAdapter(child: MallsPreviewList()),
+          const SliverToBoxAdapter(child: SizedBox(height: 48)),
           const SliverToBoxAdapter(child: AdvertCarousel()),
           SliverPadding(
             padding: const EdgeInsets.all(24),

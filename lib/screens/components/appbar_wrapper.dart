@@ -21,6 +21,7 @@ class _AppbarWrapperState extends State<AppbarWrapper> {
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
+      clipBehavior: Clip.none,
       headerSliverBuilder: (context, innerBoxIsScrolled) => [
         SliverAppBar(
           title: widget.appbarTitle,

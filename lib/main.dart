@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wayo/blocs/config_bloc/config_bloc.dart';
 import 'package:wayo/blocs/data_bloc/data_bloc.dart';
+import 'package:wayo/blocs/map_bloc/map_bloc.dart';
 import 'package:wayo/configs/router.dart';
 import 'package:wayo/configs/theme_dark.dart';
 import 'package:wayo/configs/theme_light.dart';
@@ -31,12 +32,14 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   late final ConfigBloc _configBloc;
   late final DataBloc _dataBloc;
+  late final MapBloc _mapBloc;
 
   @override
   void initState() {
     super.initState();
     _configBloc = ConfigBloc()..add(InitializeApp());
     _dataBloc = DataBloc();
+    _mapBloc = MapBloc()..add(InitializeMap());
   }
 
   @override
@@ -45,6 +48,7 @@ class _AppState extends State<App> {
       providers: [
         BlocProvider.value(value: _configBloc),
         BlocProvider.value(value: _dataBloc),
+        BlocProvider.value(value: _mapBloc),
       ],
       child: BlocSelector<ConfigBloc, ConfigState, ThemeMode>(
         bloc: _configBloc,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:navigation_history_observer/navigation_history_observer.dart';
 
 import '../screens/components/custom_bottomnav.dart';
 import '../screens/discover_screen.dart';
 import '../screens/home/home.dart';
+import '../screens/home/physical_map.dart';
 import '../screens/mall/mall_info.dart';
 import '../screens/mall/mall_map.dart';
 import '../screens/menu/menu.dart';
@@ -27,46 +27,53 @@ final GoRouter router = GoRouter(
       path: '/',
       name: 'home',
       builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: '/notifications',
-      name: 'notifications',
-      builder: (context, state) => const NotificationsScreen(),
-    ),
-    GoRoute(
-      path: '/search',
-      name: 'search',
-      builder: (context, state) => const SearchScreen(),
-    ),
-    GoRoute(
-      path: '/discover',
-      name: 'discover',
-      builder: (context, state) => const DiscoverScreen(),
-    ),
-    GoRoute(
-      path: '/saved',
-      name: 'saved',
-      builder: (context, state) => const SavedPlacesScreen(),
-    ),
-    GoRoute(
-      path: '/menu',
-      name: 'menu',
-      builder: (context, state) => const MenuScreen(),
-    ),
-    GoRoute(
-      path: '/mall',
-      name: 'mall',
-      builder: (context, state) => const MallInfoScreen(),
-    ),
-    GoRoute(
-      path: '/map',
-      name: 'map',
-      builder: (context, state) => const MallMapScreen(),
-    ),
-    GoRoute(
-      path: '/store',
-      name: 'store',
-      builder: (context, state) => const StoreInfoScreen(),
+      routes: [
+        GoRoute(
+          path: 'notifications',
+          name: 'notifications',
+          builder: (context, state) => const NotificationsScreen(),
+        ),
+        GoRoute(
+          path: 'physical_map',
+          name: 'physical_map',
+          builder: (context, state) => const PhysicalMapScreen(),
+        ),
+        GoRoute(
+          path: 'search',
+          name: 'search',
+          builder: (context, state) => const SearchScreen(),
+        ),
+        GoRoute(
+          path: 'discover',
+          name: 'discover',
+          builder: (context, state) => const DiscoverScreen(),
+        ),
+        GoRoute(
+          path: 'saved',
+          name: 'saved',
+          builder: (context, state) => const SavedPlacesScreen(),
+        ),
+        GoRoute(
+          path: 'menu',
+          name: 'menu',
+          builder: (context, state) => const MenuScreen(),
+        ),
+        GoRoute(
+          path: 'mall',
+          name: 'mall',
+          builder: (context, state) => const MallInfoScreen(),
+        ),
+        GoRoute(
+          path: 'map',
+          name: 'map',
+          builder: (context, state) => const MallMapScreen(),
+        ),
+        GoRoute(
+          path: 'store',
+          name: 'store',
+          builder: (context, state) => const StoreInfoScreen(),
+        ),
+      ],
     ),
   ],
   navigatorBuilder: (context, state, child) {
@@ -79,22 +86,22 @@ final GoRouter router = GoRouter(
 
     return Navigator(
       onPopPage: (route, result) {
-        // log('popped page with result of type: ${result.runtimeType}');
         return route.didPop(result);
       },
       pages: [
         if (isSplash)
           MaterialPage(child: Scaffold(body: child))
-        else
+        else if (isRoot)
           MaterialPage(
             child: Scaffold(
-              body: SafeArea(child: KeyboardDismisser(child: child)),
-              bottomNavigationBar: isRoot ? const CustomBottomNav() : null,
+              body: KeyboardDismisser(child: child),
+              bottomNavigationBar: const CustomBottomNav(),
             ),
           )
+        else
+          MaterialPage(child: Scaffold(body: KeyboardDismisser(child: child)))
       ],
     );
   },
-  observers: [NavigationHistoryObserver()],
   debugLogDiagnostics: true,
 );

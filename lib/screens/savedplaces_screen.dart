@@ -12,6 +12,7 @@ class _SavedPlacesScreenState extends State<SavedPlacesScreen> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      clipBehavior: Clip.none,
       slivers: [
         SliverAppBar(
           pinned: true,

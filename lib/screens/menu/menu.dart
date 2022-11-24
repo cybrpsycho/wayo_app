@@ -13,6 +13,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CustomScrollView(
+        clipBehavior: Clip.none,
         slivers: [
           SliverAppBar(
             pinned: true,
@@ -42,7 +43,10 @@ class _MenuScreenState extends State<MenuScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: const [
                             Text('WAYO'),
+                            SizedBox(height: 8),
                             Text('Brief info about Wayo'),
+                            SizedBox(height: 16),
+                            Text('TAP TO FIND OUT MORE'),
                           ],
                         ),
                       ),
@@ -63,12 +67,19 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
               ListTile(
                 leading: const Icon(Icons.email_rounded),
-                title: const Text('Send us an email as mail@wayo.com'),
+                title: const Text('Send us an email at mail@wayo.com'),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.policy_rounded),
+                title: const Text('Policies'),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                 onTap: () {},
               ),
               const ListTile(
-                title: Text('App Version 1.0.0'),
+                dense: true,
+                title: Center(child: Text('App Version 1.0.0')),
                 contentPadding: EdgeInsets.symmetric(horizontal: 24),
               ),
             ]),

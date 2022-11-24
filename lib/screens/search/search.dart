@@ -24,6 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
       body: CustomScrollView(
+        clipBehavior: Clip.none,
         slivers: [
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),

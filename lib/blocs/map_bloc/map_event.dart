@@ -8,3 +8,7 @@ abstract class MapEvent extends Equatable {
 }
 
 class InitializeMap extends MapEvent {}
+
+class GetCurrentLocation extends MapEvent {}
+
+class ChangeMapTheme extends MapEvent {}
