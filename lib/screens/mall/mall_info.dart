@@ -22,7 +22,6 @@ class _MallInfoScreenState extends State<MallInfoScreen> {
   void initState() {
     super.initState();
     _dataBloc = context.read<DataBloc>();
-    _dataBloc.add(GetStores(mallId: _dataBloc.state.mall?.id));
   }
 
   @override

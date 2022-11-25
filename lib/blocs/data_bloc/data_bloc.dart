@@ -63,18 +63,10 @@ class DataBloc extends Bloc<DataEvent, DataState> {
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
       final storeRepo = locator.get<StoreRepository>();
-      final mallRepo = locator.get<MallRepository>();
-      if (event.mallId != null) {
-        emit(state.copyWith(
-          status: LoadingStatus.success,
-          storesInMall: await mallRepo.getStoresInMall(event.mallId!),
-        ));
-      } else {
-        emit(state.copyWith(
-          status: LoadingStatus.success,
-          stores: await storeRepo.getStores(),
-        ));
-      }
+      emit(state.copyWith(
+        status: LoadingStatus.success,
+        stores: await storeRepo.getStores(),
+      ));
     } on CustomException {
       emit(state.copyWith(status: LoadingStatus.failure));
     }
@@ -84,7 +76,16 @@ class DataBloc extends Bloc<DataEvent, DataState> {
     ViewMall event,
     Emitter<DataState> emit,
   ) async {
-    emit(state.copyWith(status: LoadingStatus.success, mall: event.mall));
+    try {
+      final mallRepo = locator.get<MallRepository>();
+      emit(state.copyWith(
+        status: LoadingStatus.success,
+        mall: event.mall,
+        storesInMall: await mallRepo.getStoresInMall(event.mall.id),
+      ));
+    } on CustomException {
+      emit(state.copyWith(status: LoadingStatus.failure));
+    }
   }
 
   void _onViewStore(

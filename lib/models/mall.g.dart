@@ -12,16 +12,12 @@ Mall _$MallFromJson(Map<String, dynamic> json) => Mall(
       hours: json['hours'] as String,
       address: json['address'] as String,
       location: json['location'] as String,
+      model: json['model'] as String,
       images: (json['images'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      stores: (json['stores'] as List<dynamic>?)
-              ?.map((e) => Store.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
       logo: json['logo'] as String?,
-      model: json['model'] as String?,
       email: json['email'] as String?,
     );
 
@@ -31,9 +27,8 @@ Map<String, dynamic> _$MallToJson(Mall instance) => <String, dynamic>{
       'hours': instance.hours,
       'address': instance.address,
       'location': instance.location,
-      'images': instance.images,
-      'stores': instance.stores.map((e) => e.toJson()).toList(),
-      'logo': instance.logo,
       'model': instance.model,
+      'images': instance.images,
+      'logo': instance.logo,
       'email': instance.email,
     };

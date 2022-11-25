@@ -18,6 +18,8 @@ Store _$StoreFromJson(Map<String, dynamic> json) => Store(
       logo: json['logo'] as String?,
       description: json['description'] as String?,
       email: json['email'] as String?,
+      objectName: json['objectName'] as String?,
+      objectImage: json['objectImage'] as String?,
     );
 
 Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
@@ -30,5 +32,7 @@ Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'logo': instance.logo,
       'description': instance.description,
       'email': instance.email,
+      'objectName': instance.objectName,
+      'objectImage': instance.objectImage,
       'floors': instance.floors,
     };

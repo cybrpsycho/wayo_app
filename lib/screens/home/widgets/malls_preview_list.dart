@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:text_scroll/text_scroll.dart';
 import 'package:wayo/blocs/data_bloc/data_bloc.dart';
 
@@ -23,8 +24,11 @@ class _MallsPreviewListState extends State<MallsPreviewList> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 48 * 2,
-      child: BlocBuilder<DataBloc, DataState>(
+      child: BlocConsumer<DataBloc, DataState>(
         bloc: _dataBloc,
+        listener: (context, state) {
+          if (state.mall != null) context.goNamed('map');
+        },
         builder: (context, state) {
           return ListView.separated(
             clipBehavior: Clip.none,
@@ -36,7 +40,7 @@ class _MallsPreviewListState extends State<MallsPreviewList> {
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () => _dataBloc.add(ViewMall(mall: mall)),
                     child: Stack(
                       children: [
                         const Center(child: Icon(Icons.storefront_outlined)),
