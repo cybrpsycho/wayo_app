@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'AvantGarde',
+    fontFamily: 'Inter',
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.grey[900],
     appBarTheme: AppBarTheme(
