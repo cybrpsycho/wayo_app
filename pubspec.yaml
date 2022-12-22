@@ -20,6 +20,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   flutter_inappwebview: ^5.7.1
   flutter_svg: ^1.1.6
+  get_it: ^7.2.0
   go_router: ^4.5.0
   google_maps_flutter: ^2.2.0
   grouped_list: ^5.1.2
@@ -44,6 +45,7 @@ flutter:
     - assets/fonts/
     - assets/images/
     - assets/web/
+    - assets/web/assets/
     - assets/web/index.html
 
   fonts:

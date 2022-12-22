@@ -1,6 +1,7 @@
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wayo/locator.dart';
 import 'package:wayo/router.dart';
 import 'package:wayo/configs/theme_dark.dart';
 import 'package:wayo/configs/theme_light.dart';
@@ -13,6 +14,7 @@ void main() async {
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
+  setup();
   runApp(const App());
 }
 
