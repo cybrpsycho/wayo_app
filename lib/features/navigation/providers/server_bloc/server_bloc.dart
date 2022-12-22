@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 
 part 'server_event.dart';
 part 'server_state.dart';

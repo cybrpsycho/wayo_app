@@ -1,6 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:location/location.dart';
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 import 'package:wayo/features/shared/custom_exception.dart';
 
 class PermissionsService {

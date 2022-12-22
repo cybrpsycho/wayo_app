@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 import 'package:wayo/features/shared/custom_exception.dart';
 import 'package:wayo/features/navigation/services/location_service.dart';
 import 'package:wayo/features/settings/services/permissions_service.dart';

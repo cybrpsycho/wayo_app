@@ -4,9 +4,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 import 'features/information/screens/discover.dart';
 import 'features/information/screens/home.dart';
-import 'features/information/screens/mall_info.dart';
 import 'features/information/screens/menu.dart';
-import 'features/information/screens/store_info.dart';
 import 'features/navigation/screens/physical_map.dart';
 import 'features/navigation/screens/mall_map.dart';
 import 'features/content/screens/notifications.dart';

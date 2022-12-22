@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 import 'package:wayo/configs/theme_dark.dart';
 import 'package:wayo/configs/theme_light.dart';
 import 'package:wayo/features/shared/custom_exception.dart';

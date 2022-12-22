@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 
 class CustomException implements Exception {
   late ExceptionCode code;

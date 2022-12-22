@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 
 class StatusIndicator extends StatelessWidget {
   final LoadingStatus status;
@@ -10,7 +10,8 @@ class StatusIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (status) {
       case LoadingStatus.initial:
-        return Center(child: Column(
+        return Center(
+            child: Column(
           children: const [
             Text('Initializing'),
             SizedBox(height: 4),

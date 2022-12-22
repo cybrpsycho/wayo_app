@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:wayo/configs/enums.dart';
+import 'package:wayo/configs/constants.dart';
 
 import '../providers/server_bloc/server_bloc.dart';
 
@@ -58,7 +58,8 @@ class _MallMapScreenState extends State<MallMapScreen> {
                     // }
 
                     final eventParams = jsonEncode({
-                      // 'model': mall.model,
+                      'model':
+                          'https://firebasestorage.googleapis.com/v0/b/wayo-254.appspot.com/o/malls%2Fm06G1sLZBPmBpvqoSTRi%2Fmall.glb?alt=media&token=1579bd5f-25a8-4b6b-bf5a-e2d3384ba8df',
                       'images': stores,
                     });
                     await controller.evaluateJavascript(source: '''
@@ -78,6 +79,19 @@ class _MallMapScreenState extends State<MallMapScreen> {
                   margin: const EdgeInsets.all(24),
                   child: FloatingActionButton.extended(
                     onPressed: () async {
+                      log('navigate button clicked');
+                      //   final eventParams = jsonEncode({
+                      //     'model':
+                      //         'https://firebasestorage.googleapis.com/v0/b/wayo-254.appspot.com/o/malls%2Fm06G1sLZBPmBpvqoSTRi%2Fmall.glb',
+                      //     'images': {},
+                      //   });
+                      //   await _webViewController?.evaluateJavascript(source: '''
+                      //   window.dispatchEvent(
+                      //     new CustomEvent('init', {
+                      //       detail:$eventParams
+                      //     })
+                      //   );
+                      // ''');
                       await _webViewController?.evaluateJavascript(source: '''
                         window.dispatchEvent(
                           new CustomEvent('navigate', {
