@@ -6,3 +6,11 @@ abstract class StoreEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetStores extends StoreEvent {}
+
+class SetSelectedStore extends StoreEvent {
+  final Store store;
+
+  const SetSelectedStore({required this.store});
+}

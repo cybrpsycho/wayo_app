@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wayo/features/information/models/mall.dart';
@@ -22,6 +24,7 @@ class MallBloc extends Bloc<MallEvent, MallState> {
     try {
       emit(MallFetched(malls: await _mallRepo.getMalls()));
     } catch (e) {
+      log(e.toString());
       emit(MallError(errorMessage: e.toString()));
     }
   }

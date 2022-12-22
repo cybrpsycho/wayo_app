@@ -4,6 +4,7 @@ import 'package:wayo/features/shared/widgets/appbar_wrapper.dart';
 import '../widgets/advert_carousel.dart';
 import '../widgets/malls_preview_list.dart';
 import '../widgets/physical_map_preview.dart';
+import '../widgets/stores_preview_grid.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -61,10 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          // const SliverPadding(
-          //   padding: EdgeInsets.symmetric(horizontal: 24),
-          //   sliver: StoresPreviewGrid(),
-          // ),
+          const SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            sliver: StoresPreviewGrid(),
+          ),
         ],
       ),
     );

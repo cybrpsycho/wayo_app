@@ -1,65 +1,75 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:wayo/blocs/data_bloc/data_bloc.dart';
-// import 'package:wayo/configs/enums.dart';
-// import 'package:wayo/screens/components/status_indicator.dart';
+import 'dart:developer';
 
-// class StoresPreviewGrid extends StatefulWidget {
-//   const StoresPreviewGrid({super.key});
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wayo/features/information/providers/store_bloc/store_bloc.dart';
 
-//   @override
-//   State<StoresPreviewGrid> createState() => _StoresPreviewGridState();
-// }
+class StoresPreviewGrid extends StatefulWidget {
+  const StoresPreviewGrid({super.key});
 
-// class _StoresPreviewGridState extends State<StoresPreviewGrid> {
-//   late final DataBloc _dataBloc;
+  @override
+  State<StoresPreviewGrid> createState() => _StoresPreviewGridState();
+}
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _dataBloc = context.read<DataBloc>();
-//   }
+class _StoresPreviewGridState extends State<StoresPreviewGrid> {
+  late final StoreBloc _storeBloc;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<DataBloc, DataState>(
-//       bloc: _dataBloc,
-//       builder: (context, state) {
-//         switch (state.status) {
-//           case LoadingStatus.initial:
-//             return const StatusIndicator(status: LoadingStatus.initial);
-//           case LoadingStatus.loading:
-//             return const StatusIndicator(status: LoadingStatus.loading);
-//           case LoadingStatus.failure:
-//             return const StatusIndicator(status: LoadingStatus.failure);
-//           case LoadingStatus.success:
-//             return SliverGrid(
-//               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                 crossAxisCount: 4,
-//                 childAspectRatio: 1,
-//                 crossAxisSpacing: 16,
-//                 mainAxisSpacing: 16,
-//               ),
-//               delegate: SliverChildBuilderDelegate(
-//                 (context, index) {
-//                   final store = state.stores[index];
-//                   return Column(
-//                     children: [
-//                       const Expanded(
-//                         child: CircleAvatar(
-//                           maxRadius: 40,
-//                           child: Icon(Icons.storefront_outlined),
-//                         ),
-//                       ),
-//                       Text(store.name),
-//                     ],
-//                   );
-//                 },
-//                 childCount: state.stores.length > 12 ? 12 : state.stores.length,
-//               ),
-//             );
-//         }
-//       },
-//     );
-//   }
-// }
+  @override
+  void initState() {
+    super.initState();
+    _storeBloc = StoreBloc()..add(GetStores());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<StoreBloc, StoreState>(
+      bloc: _storeBloc,
+      builder: (context, state) {
+        log('$state');
+        if (state is StoreLoading) {
+          return const SliverToBoxAdapter(
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (state is StoreFetched) {
+          return SliverGrid(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              childAspectRatio: 1,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final store = state.stores[index];
+                return Column(
+                  children: [
+                    const Expanded(
+                      child: CircleAvatar(
+                        maxRadius: 40,
+                        child: Icon(Icons.storefront_outlined),
+                      ),
+                    ),
+                    Text(store.name),
+                  ],
+                );
+              },
+              childCount: state.stores.length > 12 ? 12 : state.stores.length,
+            ),
+          );
+        }
+        if (state is StoreError) {
+          return SliverToBoxAdapter(
+            child: Container(
+              height: 76,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(24),
+              child: const Text('App run into an error'),
+            ),
+          );
+        }
+        return const SliverToBoxAdapter(child: SizedBox());
+      },
+    );
+  }
+}

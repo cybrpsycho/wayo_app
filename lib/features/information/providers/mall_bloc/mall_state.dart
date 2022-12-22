@@ -4,7 +4,7 @@ abstract class MallState extends Equatable {
   const MallState();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class MallInitial extends MallState {}
@@ -13,12 +13,11 @@ class MallLoading extends MallState {}
 
 class MallFetched extends MallState {
   final List<Mall> malls;
-  final Mall? mall;
 
-  const MallFetched({required this.malls, this.mall});
+  const MallFetched({required this.malls});
 
   @override
-  List<Object?> get props => [malls, mall];
+  List<Object> get props => [malls];
 }
 
 class MallSelected extends MallState {
@@ -27,7 +26,7 @@ class MallSelected extends MallState {
   const MallSelected({required this.mall});
 
   @override
-  List<Object?> get props => [mall];
+  List<Object> get props => [mall];
 }
 
 class MallError extends MallState {

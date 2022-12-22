@@ -18,7 +18,7 @@ class _MallsPreviewListState extends State<MallsPreviewList> {
   @override
   void initState() {
     super.initState();
-    _dataBloc = MallBloc();
+    _dataBloc = MallBloc()..add(GetMalls());
   }
 
   @override
@@ -32,7 +32,7 @@ class _MallsPreviewListState extends State<MallsPreviewList> {
         },
         builder: (context, state) {
           if (state is MallLoading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
           if (state is MallFetched) {
             return ListView.separated(
@@ -55,8 +55,11 @@ class _MallsPreviewListState extends State<MallsPreviewList> {
                             child: TextScroll(
                               mall.name,
                               velocity: const Velocity(
-                                  pixelsPerSecond: Offset(28, 0)),
-                              delayBefore: const Duration(milliseconds: 3000),
+                                pixelsPerSecond: Offset(20, 0),
+                              ),
+                              mode: TextScrollMode.bouncing,
+                              delayBefore: const Duration(seconds: 2),
+                              pauseBetween: const Duration(seconds: 2),
                             ),
                           )
                         ],
