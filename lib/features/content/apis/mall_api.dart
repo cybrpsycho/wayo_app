@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:wayo/locator.dart';
 
@@ -8,8 +6,6 @@ class MallApi {
     await locator.isReady<Dio>();
     final dio = locator.get<Dio>();
     final response = await dio.get('/malls');
-
-    log('${response.headers}');
 
     return response.data;
   }

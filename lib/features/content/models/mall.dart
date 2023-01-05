@@ -6,7 +6,7 @@ part 'mall.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Mall {
   final String id, name, opens, closes, address, location, modelUrl;
-  final List<String> images, phoneNumbers;
+  final List<String> imageUrls, phoneNumbers;
   final String? email, logoUrl;
 
   const Mall({
@@ -18,7 +18,7 @@ class Mall {
     required this.address,
     required this.location,
     required this.modelUrl,
-    this.images = const [],
+    this.imageUrls = const [],
     this.email,
     this.logoUrl,
   });

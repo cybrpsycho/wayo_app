@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:wayo/features/content/apis/mall_api.dart';
 
 import '../models/mall.dart';
