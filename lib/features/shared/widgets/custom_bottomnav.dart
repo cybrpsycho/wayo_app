@@ -19,7 +19,7 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
       child: Card(
         elevation: 1,
         clipBehavior: Clip.antiAlias,
-        margin: const EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.all(16),
         shape: const StadiumBorder(),
         child: BottomNavigationBar(
           items: const [

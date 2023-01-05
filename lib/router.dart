@@ -20,67 +20,70 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/splash',
-      name: 'splash',
+      name: 'Splash',
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: '/',
-      name: 'home',
+      name: 'Home',
       builder: (context, state) => const HomeScreen(),
       routes: [
         GoRoute(
           path: 'notifications',
-          name: 'notifications',
+          name: 'Notifications',
           builder: (context, state) => const NotificationsScreen(),
         ),
         GoRoute(
           path: 'physical_map',
-          name: 'physical_map',
+          name: 'PhysicalMap',
           builder: (context, state) => const PhysicalMapScreen(),
         ),
         GoRoute(
           path: 'search',
-          name: 'search',
+          name: 'Search',
           builder: (context, state) => const SearchScreen(),
         ),
         GoRoute(
           path: 'discover',
-          name: 'discover',
+          name: 'Discover',
           builder: (context, state) => const DiscoverScreen(),
         ),
         GoRoute(
           path: 'saved',
-          name: 'saved',
+          name: 'Saved',
           builder: (context, state) => const SavedPlacesScreen(),
         ),
         GoRoute(
           path: 'menu',
-          name: 'menu',
+          name: 'Menu',
           builder: (context, state) => const MenuScreen(),
         ),
         GoRoute(
-          path: 'mall',
-          name: 'mall',
+          path: 'mall/:mallId',
+          name: 'MallInfo',
           builder: (context, state) {
             final mallId = state.params['mallId'] as String;
             return MallInfoScreen(mallId: mallId);
           },
         ),
+        // GoRoute(
+        //   path: 'store/:storeId',
+        //   name: 'StoreInfo',
+        //   builder: (context, state) {
+        //     final storeId = state.params['storeId'] as String;
+        //     return StoreInfoScreen(storeId: storeId);
+        //   },
+        // ),
         GoRoute(
           path: 'map',
-          name: 'map',
+          name: 'MallMap',
           builder: (context, state) => const MallMapScreen(),
         ),
         GoRoute(
           path: 'settings',
-          name: 'settings',
+          name: 'Settings',
           builder: (context, state) => const SettingsScreen(),
         ),
-        // GoRoute(
-        //   path: 'store',
-        //   name: 'store',
-        //   builder: (context, state) => const StoreInfoScreen(),
-        // ),
       ],
     ),
   ],

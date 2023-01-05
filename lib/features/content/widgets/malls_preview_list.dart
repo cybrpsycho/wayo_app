@@ -43,7 +43,10 @@ class _MallsPreviewListState extends State<MallsPreviewList> {
                     aspectRatio: 1,
                     child: InkWell(
                       onTap: () {
-                        context.goNamed('mall', params: {'mallId': mall.id});
+                        context.goNamed(
+                          'mallInfo',
+                          params: {'mallId': mall.id},
+                        );
                       },
                       child: Stack(
                         children: [

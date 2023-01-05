@@ -66,7 +66,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                         ),
                         child: Stack(
                           children: [
-                            if (state.mall.images.isEmpty)
+                            if (state.mall.imageUrls.isEmpty)
                               Container(
                                 decoration: const BoxDecoration(
                                   image: DecorationImage(
@@ -87,7 +87,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                                   autoPlayAnimationDuration:
                                       const Duration(seconds: 5),
                                 ),
-                                items: state.mall.images.map((url) {
+                                items: state.mall.imageUrls.map((url) {
                                   return Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -159,43 +159,45 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                   ),
                 ),
                 Positioned(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // const CustomAppBar(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Text(
-                          state.mall.name,
-                          style: TextStyle(
-                            color: Color.lerp(
-                              Colors.black,
-                              Colors.white,
-                              progress,
+                  child: SafeArea(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // const CustomAppBar(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text(
+                            state.mall.name,
+                            style: TextStyle(
+                              color: Color.lerp(
+                                Colors.black,
+                                Colors.white,
+                                progress,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: TextScroll(
-                          state.mall.address,
-                          mode: TextScrollMode.bouncing,
-                          velocity:
-                              const Velocity(pixelsPerSecond: Offset(32, 0)),
-                          delayBefore: const Duration(seconds: 3),
-                          pauseBetween: const Duration(seconds: 2),
-                          style: TextStyle(
-                            color: Color.lerp(
-                              Colors.black,
-                              Colors.blue,
-                              progress,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: TextScroll(
+                            state.mall.address,
+                            mode: TextScrollMode.bouncing,
+                            velocity:
+                                const Velocity(pixelsPerSecond: Offset(32, 0)),
+                            delayBefore: const Duration(seconds: 3),
+                            pauseBetween: const Duration(seconds: 2),
+                            style: TextStyle(
+                              color: Color.lerp(
+                                Colors.black,
+                                Colors.blue,
+                                progress,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

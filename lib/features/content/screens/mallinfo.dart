@@ -1,11 +1,13 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:text_scroll/text_scroll.dart';
 import 'package:wayo/features/content/providers/mall_bloc/mall_bloc.dart';
 import 'package:wayo/features/content/providers/store_bloc/store_bloc.dart';
-
-import '../widgets/page_header_delegate.dart';
 
 class MallInfoScreen extends StatefulWidget {
   final String mallId;
@@ -28,7 +30,7 @@ class _MallInfoScreenState extends State<MallInfoScreen> {
   Widget build(BuildContext context) {
     return NestedScrollView(
       headerSliverBuilder: (context, innerBoxIsScrolled) {
-        return [MallInfoHeader(mallId: widget.mallId)];
+        return [MallInfoAppbar(mallId: widget.mallId)];
       },
       body: BlocBuilder<StoreBloc, StoreState>(
         bloc: _storeBloc,
@@ -95,7 +97,7 @@ class _MallInfoScreenState extends State<MallInfoScreen> {
                   itemBuilder: (context, index) {
                     return Container(color: Colors.blue);
                   },
-                  itemCount: 5,
+                  itemCount: 20,
                 ),
               ],
             );
@@ -112,5 +114,105 @@ class _MallInfoScreenState extends State<MallInfoScreen> {
         },
       ),
     );
+  }
+}
+
+class MallInfoAppbar extends StatefulWidget {
+  final String mallId;
+
+  const MallInfoAppbar({
+    super.key,
+    required this.mallId,
+  });
+
+  @override
+  State<MallInfoAppbar> createState() => _MallInfoAppbarState();
+}
+
+class _MallInfoAppbarState extends State<MallInfoAppbar> {
+  late final MallBloc _mallBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _mallBloc = MallBloc()..add(GetMall(mallId: widget.mallId));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverLayoutBuilder(builder: (context, constraints) {
+      log('${constraints.scrollOffset}');
+      return SliverAppBar(
+        title: const Text('Mall Info'),
+        pinned: true,
+        leading: IconButton(
+          tooltip: 'Back',
+          onPressed: () => context.pop(),
+          icon: const Icon(Icons.arrow_back),
+        ),
+        actions: [
+          AspectRatio(
+            aspectRatio: 1,
+            child: IconButton(
+              tooltip: 'Notifications',
+              onPressed: () => context.goNamed('notifications'),
+              icon: const Icon(Icons.notifications_rounded),
+            ),
+          ),
+        ],
+        expandedHeight: 240,
+        flexibleSpace: BlocBuilder<MallBloc, MallState>(
+          bloc: _mallBloc,
+          builder: (context, state) {
+            if (state is MallFetched) {
+              return CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  height: double.infinity,
+                  autoPlayInterval: const Duration(seconds: 10),
+                  autoPlayAnimationDuration: const Duration(seconds: 5),
+                ),
+                items: state.mall.imageUrls.map((url) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(url),
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              );
+            }
+            return Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    'assets/images/placeholder.jpg',
+                  ),
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            );
+          },
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: BlocBuilder<MallBloc, MallState>(
+            bloc: _mallBloc,
+            builder: (context, state) {
+              if (state is MallFetched) {
+                return ListTile(
+                  title: Text(state.mall.name),
+                  subtitle: TextScroll(state.mall.address),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ),
+      );
+    });
   }
 }

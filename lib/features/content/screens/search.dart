@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wayo/features/shared/widgets/appbar_wrapper.dart';
 
 import '../widgets/filter_dropdown.dart';
 import '../widgets/search_input.dart';
@@ -14,15 +13,21 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    return AppbarWrapper(
-      appbarTitle: const Text('Search'),
-      appbarBottom: const PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight + 4),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: SearchInput(),
-        ),
-      ),
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) {
+        return [
+          const SliverAppBar(
+            title: Text('Search'),
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(kToolbarHeight + 4),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: SearchInput(),
+              ),
+            ),
+          )
+        ];
+      },
       body: CustomScrollView(
         clipBehavior: Clip.none,
         slivers: [
