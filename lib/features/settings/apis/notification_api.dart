@@ -3,7 +3,6 @@ import 'package:wayo/configs/constants.dart';
 import 'package:wayo/features/shared/custom_exception.dart';
 
 class NotificationApi {
-  // final _ref = FirebaseFirestore.instance.collection('notifications');
   final _messaging = FirebaseMessaging.instance;
 
   Future<void> setToken(String token) async {

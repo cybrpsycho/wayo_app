@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
+import 'package:wayo/features/settings/screens/settings.dart';
 
-import 'features/information/screens/discover.dart';
-import 'features/information/screens/home.dart';
-import 'features/information/screens/menu.dart';
+import 'features/content/screens/discover.dart';
+import 'features/content/screens/home.dart';
+import 'features/content/screens/mallinfo.dart';
+import 'features/content/screens/menu.dart';
 import 'features/navigation/screens/physical_map.dart';
 import 'features/navigation/screens/mall_map.dart';
-import 'features/content/screens/notifications.dart';
-import 'features/information/screens/savedplaces_screen.dart';
-import 'features/information/screens/search.dart';
+import 'features/engagement/screens/notifications.dart';
+import 'features/content/screens/savedplaces.dart';
+import 'features/content/screens/search.dart';
 import 'features/shared/widgets/custom_bottomnav.dart';
 import 'splash.dart';
 
@@ -56,15 +58,23 @@ final GoRouter router = GoRouter(
           name: 'menu',
           builder: (context, state) => const MenuScreen(),
         ),
-        // GoRoute(
-        //   path: 'mall',
-        //   name: 'mall',
-        //   builder: (context, state) => const MallInfoScreen(),
-        // ),
+        GoRoute(
+          path: 'mall',
+          name: 'mall',
+          builder: (context, state) {
+            final mallId = state.params['mallId'] as String;
+            return MallInfoScreen(mallId: mallId);
+          },
+        ),
         GoRoute(
           path: 'map',
           name: 'map',
           builder: (context, state) => const MallMapScreen(),
+        ),
+        GoRoute(
+          path: 'settings',
+          name: 'settings',
+          builder: (context, state) => const SettingsScreen(),
         ),
         // GoRoute(
         //   path: 'store',

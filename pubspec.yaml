@@ -8,9 +8,11 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   carousel_slider: ^4.1.1
   dio: ^4.0.6
+  dio_cache_interceptor: ^3.3.1
+  dio_cache_interceptor_hive_store: ^3.2.0
   equatable: ^2.0.5
   firebase_app_check: ^0.1.1+4
   firebase_core: ^2.2.0
@@ -24,9 +26,10 @@ dependencies:
   go_router: ^4.5.0
   google_maps_flutter: ^2.2.0
   grouped_list: ^5.1.2
-  json_annotation: ^4.7.0
+  json_annotation: ^4.1.0
   keyboard_dismisser: ^3.0.0
   location: ^4.4.0
+  path_provider: ^2.0.11
   shared_preferences: ^2.0.15
   sized_context: ^1.0.0+1
   text_scroll: ^0.1.0
@@ -35,8 +38,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  json_serializable: ^6.4.0
-  build_runner: ^2.2.1
+  json_serializable: ^4.1.4
+  build_runner: ^2.1.11
 
 flutter:
   uses-material-design: true
@@ -46,7 +49,6 @@ flutter:
     - assets/images/
     - assets/web/
     - assets/web/assets/
-    - assets/web/index.html
 
   fonts:
     - family: Inter

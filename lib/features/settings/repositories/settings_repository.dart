@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsReposistory {
@@ -22,9 +21,7 @@ class SettingsReposistory {
       case 'dark':
         return ThemeMode.dark;
       default:
-        final brightness = SchedulerBinding.instance.window.platformBrightness;
-        if (brightness == Brightness.dark) return ThemeMode.dark;
-        return ThemeMode.light;
+        return ThemeMode.system;
     }
   }
 
