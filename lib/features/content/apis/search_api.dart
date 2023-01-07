@@ -11,7 +11,7 @@ class SearchApi {
 
     const hostName = 'wayo.site';
     const path = '/collections/data/documents/search';
-    final queryParams = {'q': query, 'query_by': 'name,address'};
+    final queryParams = {'q': query, 'query_by': 'name'};
 
     final uri = Uri.https(hostName, path, queryParams);
 

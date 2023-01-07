@@ -13,7 +13,7 @@ class SearchRepository {
     if (data is Map && data.containsKey('hits')) {
       final hits = data['hits'];
       if (hits is List && hits.isNotEmpty) {
-        for (var element in hits) {
+        for (Map<String, dynamic> element in hits) {
           results.add(Result.fromJson(element));
         }
       }
