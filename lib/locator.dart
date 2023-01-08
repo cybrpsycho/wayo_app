@@ -17,11 +17,7 @@ void setupServiceLocator() {
 
     final dio = Dio();
 
-    final baseOptions = BaseOptions(
-      baseUrl: baseUrl,
-      // connectTimeout: 5000,
-      // receiveTimeout: 3000,
-    );
+    final baseOptions = BaseOptions(baseUrl: baseUrl);
 
     final cacheOptions = CacheOptions(
       store: HiveCacheStore(cacheDir.path),

@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     _timer = Future.delayed(
-      const Duration(seconds: 2),
+      const Duration(seconds: 1),
       () => context.goNamed('home'),
     );
   }

@@ -5,7 +5,7 @@ import 'package:wayo/features/settings/screens/settings.dart';
 
 import 'features/content/screens/discover.dart';
 import 'features/content/screens/home.dart';
-import 'features/content/screens/mallinfo.dart';
+import 'features/content/screens/mall_info.dart';
 import 'features/content/screens/menu.dart';
 import 'features/navigation/screens/physical_map.dart';
 import 'features/navigation/screens/mall_map.dart';
@@ -16,7 +16,7 @@ import 'features/shared/widgets/custom_bottomnav.dart';
 import 'splash.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/splash',
   routes: [
     GoRoute(
       path: '/splash',
