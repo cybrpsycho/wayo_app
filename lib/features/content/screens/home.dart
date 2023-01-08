@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/advert_carousel.dart';
 import '../widgets/malls_preview_list.dart';
-import '../widgets/physical_map_preview.dart';
+import '../widgets/map_preview.dart';
 import '../widgets/stores_preview_grid.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         const SliverPadding(
           padding: EdgeInsets.symmetric(horizontal: 24),
-          sliver: SliverToBoxAdapter(child: PhysicalMapPreview()),
+          sliver: SliverToBoxAdapter(child: MapPreview()),
         ),
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),

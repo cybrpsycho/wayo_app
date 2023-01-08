@@ -11,4 +11,8 @@ class InitializeMap extends MapEvent {}
 
 class GetCurrentLocation extends MapEvent {}
 
-class ChangeMapTheme extends MapEvent {}
+class UpdateMapTheme extends MapEvent {
+  final Brightness brightness;
+
+  const UpdateMapTheme({required this.brightness});
+}

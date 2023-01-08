@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,17 +10,17 @@ import 'package:wayo/configs/constants.dart';
 
 import '../../navigation/providers/map_bloc/map_bloc.dart';
 
-class PhysicalMapPreview extends StatefulWidget {
-  const PhysicalMapPreview({super.key});
+class MapPreview extends StatefulWidget {
+  const MapPreview({super.key});
 
   @override
-  State<PhysicalMapPreview> createState() => _PhysicalMapPreviewState();
+  State<MapPreview> createState() => _MapPreviewState();
 }
 
-class _PhysicalMapPreviewState extends State<PhysicalMapPreview> {
+class _MapPreviewState extends State<MapPreview> {
   late final MapBloc _mapBloc;
 
-  final Completer<GoogleMapController> _controller = Completer();
+  final _controller = Completer<GoogleMapController>();
 
   @override
   void initState() {
@@ -32,9 +34,16 @@ class _PhysicalMapPreviewState extends State<PhysicalMapPreview> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 240,
-      child: BlocBuilder<MapBloc, MapState>(
+      child: BlocConsumer<MapBloc, MapState>(
         bloc: _mapBloc,
+        listener: (context, state) async {
+          if (state.mapThemeConfig != null) {
+            final controller = await _controller.future;
+            await controller.setMapStyle(state.mapThemeConfig);
+          }
+        },
         builder: (context, state) {
+          log(state.status.name);
           switch (state.status) {
             case LoadingStatus.initial:
               return const Center(child: CircularProgressIndicator());
@@ -55,12 +64,22 @@ class _PhysicalMapPreviewState extends State<PhysicalMapPreview> {
                 tiltGesturesEnabled: false,
                 rotateGesturesEnabled: false,
                 scrollGesturesEnabled: false,
-                onTap: (argument) => context.goNamed('physical_map'),
+                onTap: (argument) => context.goNamed('PhysicalMap'),
                 onMapCreated: (controller) async {
-                  if (_controller.isCompleted) return;
                   _controller.complete(controller);
-                  await controller.setMapStyle(state.mapThemeConfig);
-                  setState(() {});
+
+                  final window = SchedulerBinding.instance.window;
+
+                  window.onPlatformBrightnessChanged = () async {
+                    _mapBloc.add(UpdateMapTheme(
+                      brightness: window.platformBrightness,
+                    ));
+                    await controller.setMapStyle(state.mapThemeConfig);
+                  };
+
+                  _mapBloc.add(UpdateMapTheme(
+                    brightness: window.platformBrightness,
+                  ));
                 },
               );
           }
