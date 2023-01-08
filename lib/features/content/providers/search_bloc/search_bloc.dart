@@ -25,42 +25,45 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     emit(state.copyWith(status: LoadingStatus.loading));
     try {
-      final results = await _searchRepo.searchForItem(event.query);
-
       final List<Mall> malls = [];
       final List<Store> stores = [];
       final List<Branch> branches = [];
 
-      for (var element in results) {
-        try {
-          malls.add(Mall.fromJson(element.document));
-        } catch (e) {
-          log('$e');
-        }
-        try {
-          stores.add(Store.fromJson(element.document));
-        } catch (e) {
-          log('$e');
-        }
-        try {
-          branches.add(Branch.fromJson(element.document));
-        } catch (e) {
-          log('$e');
+      if (event.query.isNotEmpty) {
+        final results = await _searchRepo.searchForItem(event.query);
+
+        for (var element in results) {
+          try {
+            malls.add(Mall.fromJson(element.document));
+          } catch (e) {
+            log('$e');
+          }
+          try {
+            stores.add(Store.fromJson(element.document));
+          } catch (e) {
+            log('$e');
+          }
+          try {
+            branches.add(Branch.fromJson(element.document));
+          } catch (e) {
+            log('$e');
+          }
         }
       }
-      emit(state.copyWith(
-        status: LoadingStatus.success,
-        malls: malls,
-        stores: stores,
-        branches: branches,
-      ));
+
+      emit(
+        SearchState(
+          status: LoadingStatus.success,
+          malls: malls,
+          stores: stores,
+          branches: branches,
+        ),
+      );
     } catch (e) {
-      log('$e');
       emit(state.copyWith(
         status: LoadingStatus.failure,
         errorMessage: e.toString(),
       ));
-      rethrow;
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wayo/features/content/providers/search_bloc/search_bloc.dart';
 
+import '../providers/search_bloc/search_bloc.dart';
 import '../widgets/search_input.dart';
 
 class SearchScreen extends StatefulWidget {
