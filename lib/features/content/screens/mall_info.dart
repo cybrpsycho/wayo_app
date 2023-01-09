@@ -141,7 +141,6 @@ class _MallInfoAppbarState extends State<MallInfoAppbar> {
   @override
   Widget build(BuildContext context) {
     return SliverLayoutBuilder(builder: (context, constraints) {
-      log('${constraints.scrollOffset}');
       return SliverAppBar(
         title: const Text('Mall Info'),
         pinned: true,

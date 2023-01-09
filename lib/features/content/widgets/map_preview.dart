@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wayo/configs/constants.dart';
+import 'package:wayo/locator.dart';
 
 import '../../navigation/providers/map_bloc/map_bloc.dart';
 
@@ -25,9 +26,7 @@ class _MapPreviewState extends State<MapPreview> {
   @override
   void initState() {
     super.initState();
-    _mapBloc = MapBloc()
-      ..add(InitializeMap())
-      ..add(GetCurrentLocation());
+    _mapBloc = locator.get<MapBloc>();
   }
 
   @override
@@ -43,7 +42,6 @@ class _MapPreviewState extends State<MapPreview> {
           }
         },
         builder: (context, state) {
-          log(state.status.name);
           switch (state.status) {
             case LoadingStatus.initial:
               return const Center(child: CircularProgressIndicator());
@@ -52,35 +50,38 @@ class _MapPreviewState extends State<MapPreview> {
             case LoadingStatus.failure:
               return const Center(child: Text('failed to load map'));
             case LoadingStatus.success:
-              return GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: state.location,
-                  zoom: 15,
-                ),
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                zoomControlsEnabled: false,
-                zoomGesturesEnabled: false,
-                tiltGesturesEnabled: false,
-                rotateGesturesEnabled: false,
-                scrollGesturesEnabled: false,
-                onTap: (argument) => context.goNamed('PhysicalMap'),
-                onMapCreated: (controller) async {
-                  _controller.complete(controller);
+              return Hero(
+                tag: 'map',
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: state.location,
+                    zoom: 15,
+                  ),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: false,
+                  zoomGesturesEnabled: false,
+                  tiltGesturesEnabled: false,
+                  rotateGesturesEnabled: false,
+                  scrollGesturesEnabled: false,
+                  onTap: (argument) => context.goNamed('PhysicalMap'),
+                  onMapCreated: (controller) async {
+                    _controller.complete(controller);
 
-                  final window = SchedulerBinding.instance.window;
+                    final window = SchedulerBinding.instance.window;
 
-                  window.onPlatformBrightnessChanged = () async {
+                    window.onPlatformBrightnessChanged = () async {
+                      _mapBloc.add(UpdateMapTheme(
+                        brightness: window.platformBrightness,
+                      ));
+                      await controller.setMapStyle(state.mapThemeConfig);
+                    };
+
                     _mapBloc.add(UpdateMapTheme(
                       brightness: window.platformBrightness,
                     ));
-                    await controller.setMapStyle(state.mapThemeConfig);
-                  };
-
-                  _mapBloc.add(UpdateMapTheme(
-                    brightness: window.platformBrightness,
-                  ));
-                },
+                  },
+                ),
               );
           }
         },

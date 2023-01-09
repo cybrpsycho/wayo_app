@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wayo/locator.dart';
 
 import '../providers/map_bloc/map_bloc.dart';
 
@@ -22,9 +23,7 @@ class _PhysicalMapScreenState extends State<PhysicalMapScreen> {
   @override
   void initState() {
     super.initState();
-    _mapBloc = MapBloc()
-      ..add(InitializeMap())
-      ..add(GetCurrentLocation());
+    _mapBloc = locator.get<MapBloc>();
   }
 
   @override
@@ -38,30 +37,53 @@ class _PhysicalMapScreenState extends State<PhysicalMapScreen> {
         }
       },
       builder: (context, state) {
-        return GoogleMap(
-          initialCameraPosition: CameraPosition(
-            target: state.location,
-            zoom: 15,
-          ),
-          myLocationEnabled: true,
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: false,
-          onMapCreated: (controller) async {
-            _controller.complete(controller);
+        return Stack(
+          children: [
+            Hero(
+              tag: 'map',
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: state.location,
+                  zoom: 15,
+                ),
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
+                zoomControlsEnabled: false,
+                onMapCreated: (controller) async {
+                  _controller.complete(controller);
 
-            final window = SchedulerBinding.instance.window;
+                  final window = SchedulerBinding.instance.window;
 
-            window.onPlatformBrightnessChanged = () async {
-              _mapBloc.add(UpdateMapTheme(
-                brightness: window.platformBrightness,
-              ));
-              await controller.setMapStyle(state.mapThemeConfig);
-            };
+                  window.onPlatformBrightnessChanged = () async {
+                    _mapBloc.add(UpdateMapTheme(
+                      brightness: window.platformBrightness,
+                    ));
+                    await controller.setMapStyle(state.mapThemeConfig);
+                  };
 
-            _mapBloc.add(UpdateMapTheme(
-              brightness: window.platformBrightness,
-            ));
-          },
+                  _mapBloc.add(UpdateMapTheme(
+                    brightness: window.platformBrightness,
+                  ));
+                },
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: SafeArea(
+                child: Card(
+                  clipBehavior: Clip.antiAlias,
+                  margin: const EdgeInsets.all(8),
+                  shape: const StadiumBorder(),
+                  child: SizedBox(
+                    height: kToolbarHeight,
+                    child: AppBar(
+                      title: const Text('Malls Around'),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
