@@ -19,11 +19,16 @@ void setupServiceLocator() {
   });
   locator.registerLazySingletonAsync<Dio>(() async {
     final cacheDir = await getTemporaryDirectory();
-    const baseUrl = 'https://us-central1-wayo-254.cloudfunctions.net/v1';
 
     final dio = Dio();
 
-    final baseOptions = BaseOptions(baseUrl: baseUrl);
+    const baseUrl = 'https://us-central1-wayo-254.cloudfunctions.net/live';
+    final baseOptions = BaseOptions(
+      baseUrl: baseUrl,
+      headers: {
+        'x-server-api-key': '6Vapm0fPAYw0GXH0NpsNdGySgTBleFwXihGf',
+      },
+    );
 
     final cacheOptions = CacheOptions(
       store: HiveCacheStore(cacheDir.path),

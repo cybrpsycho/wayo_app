@@ -8,7 +8,7 @@ class MallRepository {
     final mallApi = MallApi();
     final data = await mallApi.getMalls();
 
-    for (var element in data) {
+    for (var element in data['data']) {
       malls.add(Mall.fromJson(element));
     }
 

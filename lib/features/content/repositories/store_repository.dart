@@ -9,7 +9,7 @@ class StoreRepository {
     final storeApi = StoreApi();
     final data = await storeApi.getStores();
 
-    for (var element in data) {
+    for (var element in data['data']) {
       stores.add(Store.fromJson(element));
     }
 
@@ -21,7 +21,7 @@ class StoreRepository {
     final categoryApi = CategoryApi();
     final data = await categoryApi.getCategories();
 
-    for (var element in data) {
+    for (var element in data['data']) {
       categories.add(Category.fromJson(element));
     }
 

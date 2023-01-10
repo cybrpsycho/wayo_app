@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:wayo/locator.dart';
 
 class BranchApi {
-  Future<List<dynamic>> getBranches() async {
+  Future<dynamic> getBranches() async {
     final dio = locator.get<Dio>();
     final response = await dio.get('/branches');
 

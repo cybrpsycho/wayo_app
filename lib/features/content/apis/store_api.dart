@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:wayo/locator.dart';
 
 class StoreApi {
-  Future<List<dynamic>> getStores() async {
+  Future<dynamic> getStores() async {
     await locator.isReady<Dio>();
     final dio = locator.get<Dio>();
     final response = await dio.get('/stores');
