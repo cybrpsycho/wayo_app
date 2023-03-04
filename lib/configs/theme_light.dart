@@ -3,30 +3,31 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
-    useMaterial3: true,
-    fontFamily: 'Inter',
-    brightness: Brightness.light,
-    scaffoldBackgroundColor: Colors.white,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      scrolledUnderElevation: 0,
-    ),
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      elevation: 0,
-      showSelectedLabels: true,
-      showUnselectedLabels: true,
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: Colors.transparent,
-      selectedLabelStyle: TextStyle(fontSize: 12),
-      unselectedLabelStyle: TextStyle(fontSize: 10),
-    ),
-    cardTheme: const CardTheme(
-      margin: EdgeInsets.zero,
-    ),
-    tabBarTheme: const TabBarTheme(
-      labelPadding: EdgeInsets.all(4),
-      labelColor: Colors.grey,
-    ));
+  useMaterial3: true,
+  fontFamily: 'Inter',
+  brightness: Brightness.light,
+  scaffoldBackgroundColor: Colors.white,
+  appBarTheme: const AppBarTheme(
+    elevation: 0,
+    scrolledUnderElevation: 0,
+  ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    elevation: 0,
+    showSelectedLabels: true,
+    showUnselectedLabels: true,
+    type: BottomNavigationBarType.fixed,
+    backgroundColor: Colors.transparent,
+    selectedLabelStyle: TextStyle(fontSize: 12),
+    unselectedLabelStyle: TextStyle(fontSize: 10),
+  ),
+  cardTheme: const CardTheme(
+    margin: EdgeInsets.zero,
+  ),
+  tabBarTheme: const TabBarTheme(
+    labelPadding: EdgeInsets.all(4),
+    labelColor: Colors.grey,
+  ),
+);
 
 final mapLightThemeConfig = jsonEncode([
   {

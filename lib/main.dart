@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wayo/features/settings/providers/settings_bloc/settings_bloc.dart';
 import 'package:wayo/locator.dart';
 import 'package:wayo/router.dart';
 import 'package:wayo/configs/theme_dark.dart';
 import 'package:wayo/configs/theme_light.dart';
 
+import 'blocs/settings_bloc/settings_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

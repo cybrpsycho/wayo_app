@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
-import 'package:wayo/features/settings/screens/settings.dart';
+import 'package:wayo/screens/onboarding.dart';
+import 'package:wayo/screens/storeinfo.dart';
+import 'package:wayo/screens/settings.dart';
 
-import 'features/content/screens/discover.dart';
-import 'features/content/screens/home.dart';
-import 'features/content/screens/mall_info.dart';
-import 'features/content/screens/menu.dart';
-import 'features/navigation/screens/physical_map.dart';
-import 'features/navigation/screens/mall_map.dart';
-import 'features/engagement/screens/notifications.dart';
-import 'features/content/screens/savedplaces.dart';
-import 'features/content/screens/search.dart';
-import 'features/shared/widgets/custom_bottomnav.dart';
-import 'splash.dart';
+import 'screens/discover.dart';
+import 'screens/home.dart';
+import 'screens/landing_screen.dart';
+import 'screens/mall_info.dart';
+import 'screens/mall_map.dart';
+import 'screens/menu.dart';
+import 'screens/notifications.dart';
+import 'screens/physical_map.dart';
+import 'screens/savedplaces.dart';
+import 'screens/search.dart';
+import 'screens/splash.dart';
+import 'widgets/custom_bottomnav.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/splash',
@@ -22,6 +25,16 @@ final GoRouter router = GoRouter(
       path: '/splash',
       name: 'Splash',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      name: 'Onboarding',
+      builder: (context, state) => const OnboardingScreen(),
+    ),
+    GoRoute(
+      path: '/landing',
+      name: 'Landing',
+      builder: (context, state) => const LandingScreen(),
     ),
     GoRoute(
       path: '/',
@@ -66,18 +79,21 @@ final GoRouter router = GoRouter(
             return MallInfoScreen(mallId: mallId);
           },
         ),
-        // GoRoute(
-        //   path: 'store/:storeId',
-        //   name: 'StoreInfo',
-        //   builder: (context, state) {
-        //     final storeId = state.params['storeId'] as String;
-        //     return StoreInfoScreen(storeId: storeId);
-        //   },
-        // ),
         GoRoute(
-          path: 'map',
+          path: 'store/:storeId',
+          name: 'StoreInfo',
+          builder: (context, state) {
+            final storeId = state.params['storeId'] as String;
+            return StoreInfoScreen(storeId: storeId);
+          },
+        ),
+        GoRoute(
+          path: 'map/:modelUrl',
           name: 'MallMap',
-          builder: (context, state) => const MallMapScreen(),
+          builder: (context, state) {
+            final modelUrl = state.params['modelUrl'] as String;
+            return MallMapScreen(modelUrl: modelUrl);
+          },
         ),
         GoRoute(
           path: 'settings',
