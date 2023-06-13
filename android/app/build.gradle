@@ -45,7 +45,7 @@ android {
     defaultConfig {
       applicationId "com.wayo.app"
         minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 33
       versionCode flutterVersionCode.toInteger()
       versionName flutterVersionName
     }
