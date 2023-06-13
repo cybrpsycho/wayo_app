@@ -49,7 +49,8 @@ app.*.map.json
 #firebase credentials
 firebase_options.dart*
 
-#personal todos
-TODO.md*
+# flutter project assets
+assets/
 
-assets/web*
+# vscode folder
+.vscode
