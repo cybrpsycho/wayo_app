@@ -3,5 +3,4 @@ include: package:flutter_lints/flutter.yaml
 linter:
   rules:
     - use_super_parameters
-    - always_use_package_imports
     - prefer_double_quotes
