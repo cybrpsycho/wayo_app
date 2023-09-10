@@ -7,17 +7,25 @@ part of 'advert.dart';
 // **************************************************************************
 
 Advert _$AdvertFromJson(Map<String, dynamic> json) => Advert(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      description: json['description'] as String,
+      id: json['id'] as int,
       hyperlink: json['hyperlink'] as String,
-      media: json['media'] as String,
+      assetUrl: json['asset_url'] as String,
+      type: $enumDecode(_$AdTypeEnumMap, json['type']),
+      minDurationSeconds: json['min_duration_seconds'] as int?,
+      altText: json['alt_text'] as String?,
     );
 
 Map<String, dynamic> _$AdvertToJson(Advert instance) => <String, dynamic>{
       'id': instance.id,
-      'title': instance.title,
-      'description': instance.description,
+      'asset_url': instance.assetUrl,
       'hyperlink': instance.hyperlink,
-      'media': instance.media,
+      'alt_text': instance.altText,
+      'type': _$AdTypeEnumMap[instance.type]!,
+      'min_duration_seconds': instance.minDurationSeconds,
     };
+
+const _$AdTypeEnumMap = {
+  AdType.banner: 'banner',
+  AdType.interstitial: 'interstitial',
+  AdType.square: 'square',
+};

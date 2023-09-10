@@ -1,27 +1,17 @@
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
 
-part 'result.g.dart';
+part "result.g.dart";
 
-@JsonSerializable(explicitToJson: true)
+enum ResultType { mall, store }
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Result {
-  final dynamic document;
-  final List<Highlights> highlights;
+  final ResultType type;
+  final String hit;
 
-  Result({required this.highlights, this.document});
+  const Result({required this.hit, required this.type});
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResultToJson(this);
-}
-
-@JsonSerializable()
-class Highlights {
-  final String field, snippet;
-
-  const Highlights({required this.field, required this.snippet});
-
-  factory Highlights.fromJson(Map<String, dynamic> json) =>
-      _$HighlightsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$HighlightsToJson(this);
 }

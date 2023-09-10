@@ -1,26 +1,28 @@
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
+import "package:wayo/models/hours.dart";
 
-part 'branch.g.dart';
+part "branch.g.dart";
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Branch {
-  final String id, storeId, mallId, name, opens, closes;
-  final String? storeName, mallName, email;
-  final List<String> phoneNumbers;
-  final List<int> floors;
+  final int id, categoryId;
+  final String name, floor;
+  final String? description, email, logoUrl, storeModelName;
+  final Hours hours;
+  final List<String> phoneNumbers, assetUrls;
 
   const Branch({
     required this.id,
-    required this.storeId,
-    required this.mallId,
     required this.name,
-    required this.opens,
-    required this.closes,
     required this.phoneNumbers,
-    required this.floors,
-    this.storeName,
-    this.mallName,
+    required this.categoryId,
+    required this.hours,
+    required this.floor,
+    this.storeModelName,
+    this.description,
     this.email,
+    this.logoUrl,
+    this.assetUrls = const [],
   });
 
   factory Branch.fromJson(Map<String, dynamic> json) => _$BranchFromJson(json);

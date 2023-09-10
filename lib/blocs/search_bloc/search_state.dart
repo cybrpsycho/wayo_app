@@ -1,36 +1,28 @@
-part of 'search_bloc.dart';
+part of "search_bloc.dart";
 
 class SearchState extends Equatable {
-  final LoadingStatus status;
+  final BlocStatus status;
   final String? errorMessage;
-  final List<Mall> malls;
-  final List<Store> stores;
-  final List<Branch> branches;
+  final List<Result> results;
 
   const SearchState({
-    this.status = LoadingStatus.initial,
-    this.malls = const [],
-    this.stores = const [],
-    this.branches = const [],
+    this.status = BlocStatus.initial,
+    this.results = const [],
     this.errorMessage,
   });
 
   SearchState copyWith({
-    required LoadingStatus status,
-    List<Mall>? malls,
-    List<Store>? stores,
-    List<Branch>? branches,
+    required BlocStatus status,
+    List<Result>? results,
     String? errorMessage,
   }) {
     return SearchState(
       status: status,
-      malls: malls ?? this.malls,
-      stores: stores ?? this.stores,
-      branches: branches ?? this.branches,
+      results: results ?? this.results,
       errorMessage: errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, malls, stores, branches, errorMessage];
+  List<Object?> get props => [status, results, errorMessage];
 }

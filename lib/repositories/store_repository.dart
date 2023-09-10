@@ -1,37 +1,46 @@
-import 'package:wayo/apis/category_api.dart';
-import 'package:wayo/apis/store_api.dart';
-import 'package:wayo/models/category.dart';
-import 'package:wayo/models/store.dart';
+import "package:wayo/apis/mock_api.dart";
+import "package:wayo/models/branch.dart";
+import "package:wayo/models/store.dart";
 
 class StoreRepository {
   Future<List<Store>> getStores() async {
     final stores = <Store>[];
-    final storeApi = StoreApi();
-    final data = await storeApi.getStores();
+    final data = MockApi.stores;
 
-    for (var element in data['data']) {
+    for (var element in data) {
       stores.add(Store.fromJson(element));
     }
 
     return stores;
   }
 
-  Future<List<Category>> getCategories() async {
-    final categories = <Category>[];
-    final categoryApi = CategoryApi();
-    final data = await categoryApi.getCategories();
-
-    for (var element in data['data']) {
-      categories.add(Category.fromJson(element));
-    }
-
-    return categories;
-  }
-
-  Future<Store?> getStore(String storeId) async {
-    final storeApi = StoreApi();
-    final data = await storeApi.getStore(storeId);
+  Future<Store> getStore(String storeId) async {
+    final data = MockApi.stores.firstWhere((element) {
+      return element["id"] == int.parse(storeId);
+    });
 
     return Store.fromJson(data);
+  }
+
+  Future<List<Branch>> getBranches(String mallId) async {
+    final stores = <Branch>[];
+
+    final data = MockApi.branches.where((element) {
+      return element["mall_id"] == int.parse(mallId);
+    });
+
+    for (var element in data) {
+      stores.add(Branch.fromJson(element));
+    }
+
+    return stores;
+  }
+
+  Future<Branch> getBranch(String branchId) async {
+    final data = MockApi.branches.firstWhere((element) {
+      return element["id"] == int.parse(branchId);
+    });
+
+    return Branch.fromJson(data);
   }
 }

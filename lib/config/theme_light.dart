@@ -1,0 +1,47 @@
+import "package:flutter/material.dart";
+import "package:wayo/config/theme_all.dart";
+
+const lightColorScheme = ColorScheme(
+  brightness: Brightness.light,
+  primary: Color(0xFF006970),
+  onPrimary: Color(0xFFFFFFFF),
+  primaryContainer: Color(0xFF80F4FF),
+  onPrimaryContainer: Color(0xFF002022),
+  secondary: Color(0xFF006398),
+  onSecondary: Color(0xFFFFFFFF),
+  secondaryContainer: Color(0xFFCDE5FF),
+  onSecondaryContainer: Color(0xFF001D32),
+  tertiary: Color(0xFF00639C),
+  onTertiary: Color(0xFFFFFFFF),
+  tertiaryContainer: Color(0xFFCEE5FF),
+  onTertiaryContainer: Color(0xFF001D33),
+  error: Color(0xFFBA1A1A),
+  errorContainer: Color(0xFFFFDAD6),
+  onError: Color(0xFFFFFFFF),
+  onErrorContainer: Color(0xFF410002),
+  background: Color(0xFFFAFDFD),
+  onBackground: Color(0xFF191C1D),
+  surface: Color(0xFFFAFDFD),
+  onSurface: Color(0xFF191C1D),
+  surfaceVariant: Color(0xFFDAE4E5),
+  onSurfaceVariant: Color(0xFF3F4849),
+  outline: Color(0xFF6F797A),
+  onInverseSurface: Color(0xFFEFF1F1),
+  inverseSurface: Color(0xFF2D3131),
+  inversePrimary: Color(0xFF4DD9E5),
+  shadow: Color(0xFF000000),
+  surfaceTint: Color(0xFF006970),
+  outlineVariant: Color(0xFFBEC8C9),
+  scrim: Color(0xFF000000),
+);
+
+ThemeData lightTheme = ThemeData(
+  useMaterial3: true,
+  fontFamily: "Inter",
+  brightness: Brightness.light,
+  colorScheme: lightColorScheme,
+  cardTheme: cardTheme,
+  appBarTheme: appBarTheme,
+  tabBarTheme: tabBarTheme,
+  bottomAppBarTheme: bottomAppBarTheme,
+);

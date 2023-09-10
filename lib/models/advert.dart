@@ -1,19 +1,31 @@
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
 
-part 'advert.g.dart';
+part "advert.g.dart";
 
-enum AdType { banner, interstitial, leaderboard, square, video }
+enum AdType {
+  @JsonValue("banner")
+  banner,
+  @JsonValue("interstitial")
+  interstitial,
+  @JsonValue("square")
+  square,
+}
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Advert {
-  final String id, title, description, hyperlink, media;
+  final int id;
+  final String assetUrl, hyperlink;
+  final String? altText;
+  final AdType type;
+  final int? minDurationSeconds;
 
   const Advert({
     required this.id,
-    required this.title,
-    required this.description,
     required this.hyperlink,
-    required this.media,
+    required this.assetUrl,
+    required this.type,
+    this.minDurationSeconds,
+    this.altText,
   });
 
   factory Advert.fromJson(Map<String, dynamic> json) => _$AdvertFromJson(json);

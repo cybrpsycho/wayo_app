@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class SearchInput extends StatelessWidget {
   final Function(String value)? onChanged;
@@ -10,7 +10,8 @@ class SearchInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        hintText: 'Search for malls & stores',
+        hintText: "Search for malls & stores",
+        filled: false,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(48),
           borderSide: BorderSide(color: Colors.grey[400]!),

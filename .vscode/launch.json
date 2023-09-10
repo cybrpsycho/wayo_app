@@ -1,19 +1,22 @@
 {
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "wayo",
+      "name": "wayo_app",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "wayo (profile mode)",
+      "name": "wayo_app (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "wayo (release mode)",
+      "name": "wayo_app (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

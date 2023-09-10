@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
 
 class CustomIcon extends StatefulWidget {
   final String name;
@@ -15,7 +15,7 @@ class _CustomIconState extends State<CustomIcon> {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      'assets/icons/${widget.name}',
+      "assets/icons/${widget.name}",
       width: widget.size,
       height: widget.size,
     );

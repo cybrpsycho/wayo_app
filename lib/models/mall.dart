@@ -1,36 +1,37 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
+import "package:latlong2/latlong.dart";
+import "package:wayo/models/hours.dart";
 
-part 'mall.g.dart';
+part "mall.g.dart";
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Mall {
-  final String id, name, opens, closes, address, location, modelUrl;
-  final List<String> imageUrls, phoneNumbers;
-  final String? email, logoUrl;
+  final int id;
+  final String name, physicalAddress;
+  final String? email, logoUrl, modelUrl;
+  @JsonKey(fromJson: latLngFromJson)
+  final LatLng coordinates;
+  final Hours hours;
+  final List<String> phoneNumbers, assetUrls;
 
   const Mall({
     required this.id,
     required this.name,
+    required this.coordinates,
+    required this.physicalAddress,
     required this.phoneNumbers,
-    required this.opens,
-    required this.closes,
-    required this.address,
-    required this.location,
-    required this.modelUrl,
-    this.imageUrls = const [],
     this.email,
+    required this.hours,
     this.logoUrl,
+    this.modelUrl,
+    this.assetUrls = const [],
   });
 
   factory Mall.fromJson(Map<String, dynamic> json) => _$MallFromJson(json);
 
   Map<String, dynamic> toJson() => _$MallToJson(this);
-}
 
-extension ToLatLng on String {
-  LatLng toLatLng() {
-    final coords = split(',');
-    return LatLng(double.parse(coords.first), double.parse(coords.last));
+  static LatLng latLngFromJson(Map<String, dynamic> json) {
+    return LatLng(json["lat"], json["long"]);
   }
 }

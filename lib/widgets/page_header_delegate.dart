@@ -1,9 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:text_scroll/text_scroll.dart';
-import 'package:wayo/blocs/mall_bloc/mall_bloc.dart';
+import "package:cached_network_image/cached_network_image.dart";
+import "package:carousel_slider/carousel_slider.dart";
+import "package:flutter/material.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:text_scroll/text_scroll.dart";
+import "package:wayo/blocs/mall_bloc/mall_bloc.dart";
+import "package:wayo/config/enums.dart";
 
 class MallInfoHeader extends StatefulWidget {
   final String mallId;
@@ -44,7 +45,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
     return BlocBuilder<MallBloc, MallState>(
       bloc: bloc,
       builder: (context, state) {
-        if (state is MallLoading) {
+        if (state.status == BlocStatus.loading) {
           return const Center(child: CircularProgressIndicator());
         }
         if (state is MallFetched) {
@@ -65,12 +66,12 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                         ),
                         child: Stack(
                           children: [
-                            if (state.mall.imageUrls.isEmpty)
+                            if (state.mall.assetUrls.isEmpty)
                               Container(
                                 decoration: const BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
-                                      'assets/images/placeholder.jpg',
+                                      "assets/images/placeholder.jpg",
                                     ),
                                     fit: BoxFit.fitWidth,
                                   ),
@@ -86,7 +87,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                                   autoPlayAnimationDuration:
                                       const Duration(seconds: 5),
                                 ),
-                                items: state.mall.imageUrls.map((url) {
+                                items: state.mall.assetUrls.map((url) {
                                   return Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -123,7 +124,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                                               const SizedBox(width: 8),
                                               Expanded(
                                                 child: Text(
-                                                  '${state.mall.opens} - ${state.mall.closes}',
+                                                  state.mall.hours.mon,
                                                 ),
                                               ),
                                             ],
@@ -140,8 +141,8 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                                                   Icons.location_on_rounded),
                                               const SizedBox(width: 8),
                                               Expanded(
-                                                  child:
-                                                      Text(state.mall.address)),
+                                                  child: Text(state
+                                                      .mall.physicalAddress)),
                                             ],
                                           ),
                                         ),
@@ -180,7 +181,7 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           child: TextScroll(
-                            state.mall.address,
+                            state.mall.physicalAddress,
                             mode: TextScrollMode.bouncing,
                             velocity:
                                 const Velocity(pixelsPerSecond: Offset(32, 0)),
@@ -203,12 +204,12 @@ class PageHeaderDelegate extends SliverPersistentHeaderDelegate {
             ),
           );
         }
-        if (state is MallError) {
+        if (state.status == BlocStatus.failure) {
           return Container(
             height: 76,
             alignment: Alignment.center,
             padding: const EdgeInsets.all(24),
-            child: const Text('App run into an error'),
+            child: const Text("App run into an error"),
           );
         }
         return const SizedBox();

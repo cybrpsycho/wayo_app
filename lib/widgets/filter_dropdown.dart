@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class FilterDropdown extends StatelessWidget {
   const FilterDropdown({super.key});
@@ -23,7 +23,7 @@ class FilterDropdown extends StatelessWidget {
           ),
           child: Row(
             children: const [
-              Text('Filter'),
+              Text("Filter"),
               SizedBox(width: 4),
               Icon(Icons.arrow_drop_down_rounded)
             ],
@@ -55,7 +55,7 @@ class FilterList extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
             child: Column(
               children: const [
-                Text('CATEGORIES'),
+                Text("CATEGORIES"),
                 Divider(),
               ],
             ),
@@ -65,7 +65,7 @@ class FilterList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ListTile(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 24),
-                  title: Text('category number ${index + 1}'),
+                  title: Text("category number ${index + 1}"),
                   trailing: Checkbox(
                     value: true,
                     onChanged: (value) {},

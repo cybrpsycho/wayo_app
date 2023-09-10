@@ -1,20 +1,18 @@
-part of 'mall_bloc.dart';
+part of "mall_bloc.dart";
 
-abstract class MallState extends Equatable {
-  const MallState();
+class MallState extends Equatable {
+  final BlocStatus status;
+  final String? message;
+  const MallState({this.status = BlocStatus.initial, this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [status, message];
 }
-
-class MallInitial extends MallState {}
-
-class MallLoading extends MallState {}
 
 class MallsFetched extends MallState {
   final List<Mall> malls;
 
-  const MallsFetched({required this.malls});
+  const MallsFetched({super.status = BlocStatus.success, required this.malls});
 
   @override
   List<Object> get props => [malls];
@@ -23,17 +21,8 @@ class MallsFetched extends MallState {
 class MallFetched extends MallState {
   final Mall mall;
 
-  const MallFetched({required this.mall});
+  const MallFetched({super.status = BlocStatus.success, required this.mall});
 
   @override
   List<Object> get props => [mall];
-}
-
-class MallError extends MallState {
-  final String errorMessage;
-
-  const MallError({required this.errorMessage});
-
-  @override
-  List<Object> get props => [errorMessage];
 }
