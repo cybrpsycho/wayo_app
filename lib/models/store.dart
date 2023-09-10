@@ -1,22 +1,22 @@
-import 'package:json_annotation/json_annotation.dart';
+import "package:json_annotation/json_annotation.dart";
 
-part 'store.g.dart';
+part "store.g.dart";
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Store {
-  final String id, name, categoryId;
-  final String? email, logoUrl, description;
-  final List<String> phoneNumbers, subcategoryIds;
+  final int id;
+  final String name, email, logoUrl, featureImage;
+  final String? description;
+  final List<String> phoneNumbers;
 
   const Store({
     required this.id,
     required this.name,
-    required this.categoryId,
-    required this.subcategoryIds,
-    required this.phoneNumbers,
-    this.email,
-    this.logoUrl,
+    required this.email,
+    required this.logoUrl,
+    required this.featureImage,
     this.description,
+    this.phoneNumbers = const [],
   });
 
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);

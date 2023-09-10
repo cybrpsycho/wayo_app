@@ -1,6 +1,6 @@
-import 'dart:developer';
+import "dart:developer";
 
-import 'package:wayo/configs/constants.dart';
+import "package:wayo/config/enums.dart";
 
 class CustomException implements Exception {
   late ExceptionCode code;
@@ -8,8 +8,8 @@ class CustomException implements Exception {
 
   CustomException({
     this.code = ExceptionCode.UNKNOWN,
-    this.message = 'An unknown error occurred',
+    this.message = "An unknown error occurred",
   }) {
-    log('[Custom Exception]: $message');
+    log("[Custom Exception]: $message");
   }
 }

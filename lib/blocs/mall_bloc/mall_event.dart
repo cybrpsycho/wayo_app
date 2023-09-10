@@ -1,4 +1,4 @@
-part of 'mall_bloc.dart';
+part of "mall_bloc.dart";
 
 abstract class MallEvent extends Equatable {
   const MallEvent();
@@ -7,7 +7,11 @@ abstract class MallEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetMalls extends MallEvent {}
+class GetMalls extends MallEvent {
+  final String? storeId;
+
+  const GetMalls({this.storeId});
+}
 
 class GetMall extends MallEvent {
   final String mallId;

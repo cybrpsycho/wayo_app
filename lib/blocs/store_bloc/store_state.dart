@@ -1,20 +1,21 @@
-part of 'store_bloc.dart';
+part of "store_bloc.dart";
 
-abstract class StoreState extends Equatable {
-  const StoreState();
+class StoreState extends Equatable {
+  final BlocStatus status;
+  final String? message;
+  const StoreState({this.status = BlocStatus.initial, this.message});
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [status, message];
 }
-
-class StoreInitial extends StoreState {}
-
-class StoreLoading extends StoreState {}
 
 class StoresFetched extends StoreState {
   final List<Store> stores;
 
-  const StoresFetched({required this.stores});
+  const StoresFetched({
+    super.status = BlocStatus.success,
+    required this.stores,
+  });
 
   @override
   List<Object> get props => [stores];
@@ -23,17 +24,35 @@ class StoresFetched extends StoreState {
 class StoreFetched extends StoreState {
   final Store store;
 
-  const StoreFetched({required this.store});
+  const StoreFetched({
+    super.status = BlocStatus.success,
+    required this.store,
+  });
 
   @override
   List<Object> get props => [store];
 }
 
-class StoreError extends StoreState {
-  final String errorMessage;
+class BranchesFetched extends StoreState {
+  final List<Branch> branches;
 
-  const StoreError({required this.errorMessage});
+  const BranchesFetched({
+    super.status = BlocStatus.success,
+    required this.branches,
+  });
 
   @override
-  List<Object> get props => [errorMessage];
+  List<Object> get props => [branches];
+}
+
+class BranchFetched extends StoreState {
+  final Branch branch;
+
+  const BranchFetched({
+    super.status = BlocStatus.success,
+    required this.branch,
+  });
+
+  @override
+  List<Object> get props => [branch];
 }

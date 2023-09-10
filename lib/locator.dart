@@ -1,35 +1,24 @@
-import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
-import 'package:get_it/get_it.dart';
-import 'package:path_provider/path_provider.dart';
+import "package:dio/dio.dart";
+import "package:dio_cache_interceptor/dio_cache_interceptor.dart";
+import "package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart";
+import "package:get_it/get_it.dart";
+import "package:path_provider/path_provider.dart";
+import "package:wayo/blocs/app_bloc/app_bloc.dart";
 
-import 'blocs/map_bloc/map_bloc.dart';
-import 'blocs/settings_bloc/settings_bloc.dart';
+void setupServiceLocators() {
+  GetIt.I.registerLazySingleton<AppBloc>(() => AppBloc());
 
-final locator = GetIt.instance;
+  GetIt.I.registerLazySingleton<Dio>(() {
+    const baseUrl = "https://wayo.site";
 
-void setupServiceLocator() {
-  locator.registerLazySingleton<SettingsBloc>(() {
-    return SettingsBloc()..add(InitializeSettings());
+    final baseOptions = BaseOptions(baseUrl: baseUrl);
+    final dio = Dio(baseOptions);
+
+    return dio;
   });
-  locator.registerLazySingleton<MapBloc>(() {
-    return MapBloc()
-      ..add(InitializeMap())
-      ..add(GetCurrentLocation());
-  });
-  locator.registerLazySingletonAsync<Dio>(() async {
+
+  GetIt.I.registerLazySingletonAsync<DioCacheInterceptor>(() async {
     final cacheDir = await getTemporaryDirectory();
-
-    final dio = Dio();
-
-    const baseUrl = 'https://us-central1-wayo-254.cloudfunctions.net/live';
-    final baseOptions = BaseOptions(
-      baseUrl: baseUrl,
-      headers: {
-        'x-server-api-key': '6Vapm0fPAYw0GXH0NpsNdGySgTBleFwXihGf',
-      },
-    );
 
     final cacheOptions = CacheOptions(
       store: HiveCacheStore(cacheDir.path),
@@ -37,9 +26,6 @@ void setupServiceLocator() {
       policy: CachePolicy.forceCache,
     );
 
-    dio.options = baseOptions;
-    // dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
-
-    return dio;
+    return DioCacheInterceptor(options: cacheOptions);
   });
 }

@@ -1,11 +1,9 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:location/location.dart';
-import 'package:wayo/configs/constants.dart';
-import 'package:wayo/models/custom_exception.dart';
+import "package:location/location.dart";
+import "package:wayo/config/enums.dart";
+import "package:wayo/models/custom_exception.dart";
 
 class PermissionsService {
   final _location = Location();
-  final _messaging = FirebaseMessaging.instance;
 
   Future<PermissionStatus> getLocationPermission() async {
     bool serviceEnabled;
@@ -16,7 +14,7 @@ class PermissionsService {
       if (serviceEnabled == false) {
         throw CustomException(
           code: ExceptionCode.LOCATION_SERVICE_DISABLED,
-          message: 'Location service has not been enabled',
+          message: "Location service has not been enabled",
         );
       }
     }
@@ -30,7 +28,6 @@ class PermissionsService {
         await _location.requestPermission();
         break;
       case PermissionType.NOTIFICATIONS:
-        await _messaging.requestPermission();
         break;
       default:
     }

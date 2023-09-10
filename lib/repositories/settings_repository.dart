@@ -1,29 +1,25 @@
-import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wayo/apis/notification_api.dart';
+import "package:flutter/material.dart";
+import "package:path_provider/path_provider.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
-class SettingsReposistory {
+
+class SettingsRepository {
   Future<bool> isFirstRun() async {
     final prefs = await SharedPreferences.getInstance();
-    final isFirstRun = prefs.getBool('isFirstRun');
+    final isFirstRun = prefs.getBool("isFirstRun");
 
-    if (isFirstRun ?? false) return true;
-    return false;
+    return isFirstRun ?? false;
   }
 
-  Future<void> setupNotifications() async {
-    final api = NotificationApi();
-    api.getToken();
-  }
+  Future<void> setupNotifications() async {}
 
   Future<ThemeMode> getThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    final theme = prefs.getString('theme');
+    final theme = prefs.getString("theme");
     switch (theme) {
-      case 'light':
+      case "light":
         return ThemeMode.light;
-      case 'dark':
+      case "dark":
         return ThemeMode.dark;
       default:
         return ThemeMode.system;
@@ -32,7 +28,7 @@ class SettingsReposistory {
 
   Future<void> setThemeMode(ThemeMode themeMode) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('theme', themeMode.name);
+    await prefs.setString("theme", themeMode.name);
   }
 
   Future<void> clearCache() async {

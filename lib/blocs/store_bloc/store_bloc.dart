@@ -1,19 +1,22 @@
-import 'dart:developer';
+import "dart:developer";
 
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import "package:equatable/equatable.dart";
+import "package:flutter_bloc/flutter_bloc.dart";
+import "package:wayo/config/dev_functions.dart";
+import "package:wayo/config/enums.dart";
+import "package:wayo/models/store.dart";
+import "package:wayo/models/branch.dart";
+import "package:wayo/repositories/store_repository.dart";
 
-import '../../models/store.dart';
-import '../../../../repositories/store_repository.dart';
-
-part 'store_event.dart';
-part 'store_state.dart';
+part "store_event.dart";
+part "store_state.dart";
 
 class StoreBloc extends Bloc<StoreEvent, StoreState> {
-  StoreBloc() : super(StoreInitial()) {
+  StoreBloc() : super(const StoreState()) {
     on<GetStores>(_onGetStores);
-    on<GetStoresInMall>(_onGetStoresInMall);
+    on<GetBranches>(_onGetBranches);
     on<GetStore>(_onGetStore);
+    on<GetBranch>(_onGetBranch);
   }
 
   final _storeRepo = StoreRepository();
@@ -22,25 +25,14 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     GetStores event,
     Emitter<StoreState> emit,
   ) async {
-    emit(StoreLoading());
+    emit(const StoreState(status: BlocStatus.loading));
     try {
-      emit(StoresFetched(stores: await _storeRepo.getStores()));
+      final stores = await _storeRepo.getStores();
+      await simulateLatency();
+      emit(StoresFetched(stores: stores));
     } catch (e) {
       log(e.toString());
-      emit(StoreError(errorMessage: e.toString()));
-    }
-  }
-
-  void _onGetStoresInMall(
-    GetStoresInMall event,
-    Emitter<StoreState> emit,
-  ) async {
-    emit(StoreLoading());
-    try {
-      emit(StoresFetched(stores: await _storeRepo.getStores()));
-    } catch (e) {
-      log(e.toString());
-      emit(StoreError(errorMessage: e.toString()));
+      emit(StoreState(status: BlocStatus.failure, message: e.toString()));
     }
   }
 
@@ -48,15 +40,44 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
     GetStore event,
     Emitter<StoreState> emit,
   ) async {
-    emit(StoreLoading());
+    emit(const StoreState(status: BlocStatus.loading));
     try {
       final store = await _storeRepo.getStore(event.storeId);
-      if (store != null) {
-        emit(StoreFetched(store: store));
-      }
+      await simulateLatency();
+      emit(StoreFetched(store: store));
     } catch (e) {
       log(e.toString());
-      emit(StoreError(errorMessage: e.toString()));
+      emit(StoreState(status: BlocStatus.failure, message: e.toString()));
+    }
+  }
+
+  void _onGetBranches(
+    GetBranches event,
+    Emitter<StoreState> emit,
+  ) async {
+    emit(const StoreState(status: BlocStatus.loading));
+    try {
+      final branches = await _storeRepo.getBranches(event.mallId);
+      await simulateLatency();
+      emit(BranchesFetched(branches: branches));
+    } catch (e) {
+      log(e.toString());
+      emit(StoreState(status: BlocStatus.failure, message: e.toString()));
+    }
+  }
+
+  void _onGetBranch(
+    GetBranch event,
+    Emitter<StoreState> emit,
+  ) async {
+    emit(const StoreState(status: BlocStatus.loading));
+    try {
+      final branch = await _storeRepo.getBranch(event.branchId);
+      await simulateLatency();
+      emit(BranchFetched(branch: branch));
+    } catch (e) {
+      log(e.toString());
+      emit(StoreState(status: BlocStatus.failure, message: e.toString()));
     }
   }
 }

@@ -7,34 +7,33 @@ part of 'mall.dart';
 // **************************************************************************
 
 Mall _$MallFromJson(Map<String, dynamic> json) => Mall(
-      id: json['id'] as String,
+      id: json['id'] as int,
       name: json['name'] as String,
-      phoneNumbers: (json['phoneNumbers'] as List<dynamic>)
+      coordinates:
+          Mall.latLngFromJson(json['coordinates'] as Map<String, dynamic>),
+      physicalAddress: json['physical_address'] as String,
+      phoneNumbers: (json['phone_numbers'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      opens: json['opens'] as String,
-      closes: json['closes'] as String,
-      address: json['address'] as String,
-      location: json['location'] as String,
-      modelUrl: json['modelUrl'] as String,
-      imageUrls: (json['imageUrls'] as List<dynamic>?)
+      email: json['email'] as String?,
+      hours: Hours.fromJson(json['hours'] as Map<String, dynamic>),
+      logoUrl: json['logo_url'] as String?,
+      modelUrl: json['model_url'] as String?,
+      assetUrls: (json['asset_urls'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      email: json['email'] as String?,
-      logoUrl: json['logoUrl'] as String?,
     );
 
 Map<String, dynamic> _$MallToJson(Mall instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'opens': instance.opens,
-      'closes': instance.closes,
-      'address': instance.address,
-      'location': instance.location,
-      'modelUrl': instance.modelUrl,
-      'imageUrls': instance.imageUrls,
-      'phoneNumbers': instance.phoneNumbers,
+      'physical_address': instance.physicalAddress,
       'email': instance.email,
-      'logoUrl': instance.logoUrl,
+      'logo_url': instance.logoUrl,
+      'model_url': instance.modelUrl,
+      'coordinates': instance.coordinates,
+      'hours': instance.hours,
+      'phone_numbers': instance.phoneNumbers,
+      'asset_urls': instance.assetUrls,
     };
